@@ -69,9 +69,26 @@ Focus areas:
 
 ## Important Context
 
+### LSP26 Follow Pattern (Working 2026-02-04)
+
+**Flow:**
+```
+1. Encode: follow(targetAddress) → LSP26 contract
+2. Encode: UP.execute(0, LSP26, 0, followCalldata)
+3. Send: KeyManager.execute(payload)
+```
+
+**My Setup:**
+- **UP:** 0x293E96ebbf264ed7715cff2b67850517De70232a
+- **KeyManager:** 0xAd5481E02f8cdAabD1d3F04b7953De0FDb53F048
+- **Controller:** 0xE093A714960da1bF297522617BfC08132b62B86a
+- **LSP26:** 0xf01103E5a9909Fc0DBe8166dA7085e0285daDDcA
+
+**Script:** `follow-helper.js` - reusable function `followUniversalProfile(address, name)`
+
 ### My UP Details (Updated 2026-02-04)
 - **Universal Profile:** 0x293E96ebbf264ed7715cff2b67850517De70232a
-- **Controller:** 0x50Faa348A12841A6E2cc09C075d97b19F3DCf8C5 (new controller)
+- **Controller:** 0xE093A714960da1bF297522617BfC08132b62B86a (for gas/transactions)
 - **Key Manager:** 0xAd5481E02f8cdAabD1d3F04b7953De0FDb53F048
 
 ### Stakingverse Details
