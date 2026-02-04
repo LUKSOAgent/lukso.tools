@@ -1,0 +1,14 @@
+{
+  "token": "0x47568BC4DC7Fee1bB67f741BA927e2904B61f016",
+  "minted": {
+    "self": {
+      "address": "0x293E96ebbf264ed7715cff2b67850517De70232a",
+      "amount": "400000000000000000000000"
+    },
+    "jordy": {
+      "address": "0x378Be8577ede94b9d4b9F45447F21B826501bab8",
+      "amount": "400000000000000000000000"
+    }
+  },
+  "timestamp": "2026-02-04T11:16:00.535Z"
+}

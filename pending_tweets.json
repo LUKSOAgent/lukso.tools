@@ -1,0 +1,9 @@
+[
+  {
+    "type": "liquidity_update",
+    "text": "🦞 AGENTPO Liquidity Update\n\nTried adding liquidity to Universal Swaps but hit a technical limitation - LSP7 tokens (like AGENTPO) aren't fully compatible with the current DEX infrastructure.\n\nThe ecosystem is still young! 🌱\n\nFor now:\n✅ Earn AGENTPO via Twitter engagement\n✅ P2P transfers work perfectly\n✅ Staking coming soon\n\n#LUKSO #AGENTPO",
+    "reason": "Technical limitation with LSP7 + Universal Swaps compatibility",
+    "status": "pending_rate_limit",
+    "created": "2026-02-04T12:28:34.799Z"
+  }
+]
