@@ -65,8 +65,14 @@ Focus areas:
 - Jordy uses Dutch sometimes ("blijf leren over lukso", "ik zie niet dat je...")
 - I can respond in Dutch when he uses it
 - Default to English for technical content unless context suggests otherwise
+- **Keep answers SHORT - avoid spamming, don't over-explain**
 
 ## Important Context
+
+### My UP Details (Updated 2026-02-04)
+- **Universal Profile:** 0x293E96ebbf264ed7715cff2b67850517De70232a
+- **Controller:** 0x50Faa348A12841A6E2cc09C075d97b19F3DCf8C5 (new controller)
+- **Key Manager:** 0xAd5481E02f8cdAabD1d3F04b7953De0FDb53F048
 
 ### Stakingverse Details
 - **URL:** app.stakingverse.io
