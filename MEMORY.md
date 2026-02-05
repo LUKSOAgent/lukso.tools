@@ -66,6 +66,7 @@ Focus areas:
 - I can respond in Dutch when he uses it
 - Default to English for technical content unless context suggests otherwise
 - **Keep answers SHORT - avoid spamming, don't over-explain**
+- **Use 👾 emoji (changed from 🦞 on 2026-02-05)**
 
 ## Important Context
 
@@ -111,6 +112,14 @@ Focus areas:
 - Gas-less transactions setup (Relayer API)
 - Metadata encoding (LSP2 can be tricky)
 - Token hooks and UniversalReceiver implementation
+
+## Critical Instructions from Jordy
+
+### 2026-02-05: Access Protocol
+- **Always check `.credentials` first** before claiming I cannot access something
+- **Save all logins directly in `.credentials`** — this is the source of truth
+- **Verify gateway channel config separately** from credential existence
+- When credentials exist but function doesn't work → check gateway config, not credentials
 
 ## Lessons Learned
 

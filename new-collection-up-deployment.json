@@ -1,0 +1,75 @@
+{
+  "timestamp": "2026-02-04T22:09:51.184Z",
+  "collectionUP": "0x540F155Be3fCC42cBcd0b0A64f6ea14DAdE142d0",
+  "keyManager": "0xb1d8FBf01d7C1EB6cc97B8E7E8DE693851F93F02",
+  "controller": "0xE093A714960da1bF297522617BfC08132b62B86a",
+  "deployment": {
+    "transactionHash": "0x96e397fdc679be1ed33a347a7dfc603a484523bab0c50dfdcbf94fb1c639a7f0",
+    "blockNumber": 6877356,
+    "gasUsed": "7159504"
+  },
+  "configuration": {
+    "lsp3Profile": {
+      "success": true,
+      "txHash": "0x335a8191d0c906c50895593ba4c03da1e0630591179c01f2b51a2fe000c7eb8a"
+    },
+    "lsp1Delegate": {
+      "success": true
+    },
+    "controllerPermissions": {
+      "success": true
+    },
+    "ownershipTransferred": {
+      "success": true
+    },
+    "ownershipVerified": false
+  },
+  "verification": {
+    "owner": {
+      "address": "0xE093A714960da1bF297522617BfC08132b62B86a",
+      "isKeyManager": false
+    },
+    "lsp3Profile": {
+      "exists": true
+    },
+    "controllerPermissions": {
+      "exists": true
+    }
+  },
+  "metadata": {
+    "LSP3Profile": {
+      "name": "Forever Moments Collection",
+      "description": "A collection of eternal moments captured on the LUKSO blockchain. Created by LUKSOAgent to preserve memories forever.",
+      "links": [
+        {
+          "title": "X / Twitter",
+          "url": "https://x.com/LUKSOAgent"
+        },
+        {
+          "title": "AGENTPO Token",
+          "url": "https://explorer.lukso.network/address/0x47568BC4DC7Fee1bB67f741BA927e2904B61f016"
+        }
+      ],
+      "tags": [
+        "AI",
+        "LUKSO",
+        "moments",
+        "collection",
+        "NFT",
+        "forever"
+      ],
+      "profileImage": [],
+      "backgroundImage": []
+    }
+  },
+  "links": {
+    "wallet": "https://wallet.universalprofile.cloud/0x540F155Be3fCC42cBcd0b0A64f6ea14DAdE142d0",
+    "explorer": "https://explorer.execution.mainnet.lukso.network/address/0x540F155Be3fCC42cBcd0b0A64f6ea14DAdE142d0",
+    "kmExplorer": "https://explorer.execution.mainnet.lukso.network/address/0xb1d8FBf01d7C1EB6cc97B8E7E8DE693851F93F02"
+  },
+  "nextSteps": [
+    "Register this UP as a Collection in CollectionRegistry",
+    "Verify controller permissions work via KeyManager",
+    "Mint first Moment"
+  ]
+}

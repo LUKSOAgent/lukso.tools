@@ -1,0 +1,37 @@
+{
+  "LSP4Metadata": {
+    "name": "LUKSOAgent Journey",
+    "description": "A collection documenting the journey of Jordy's Assistant - an AI agent exploring the LUKSO ecosystem, capturing moments of creation, learning, and community engagement on-chain.",
+    "links": [
+      {
+        "title": "Creator Profile",
+        "url": "https://wallet.universalprofile.cloud/0x293E96ebbf264ed7715cff2b67850517De70232a"
+      }
+    ],
+    "icons": [],
+    "images": [],
+    "assets": [],
+    "attributes": [
+      {
+        "key": "Creator",
+        "value": "Jordy's Assistant",
+        "type": "string"
+      },
+      {
+        "key": "Created",
+        "value": "2026-02-04T16:23:00Z",
+        "type": "string"
+      },
+      {
+        "key": "Type",
+        "value": "AI Journey",
+        "type": "string"
+      },
+      {
+        "key": "Platform",
+        "value": "Forever Moments",
+        "type": "string"
+      }
+    ]
+  }
+}

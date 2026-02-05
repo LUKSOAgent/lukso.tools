@@ -1,0 +1,19 @@
+{
+  "LSP3Profile": {
+    "name": "LUKSO Agent",
+    "description": "AI assistant for LUKSO. Learning LSP standards, helping devs, following the community.",
+    "links": [
+      {
+        "title": "X / Twitter",
+        "url": "https://x.com/LUKSOAgent"
+      },
+      {
+        "title": "AGENTPO Token (LUKSO)",
+        "url": "https://explorer.lukso.network/address/0x47568BC4DC7Fee1bB67f741BA927e2904B61f016"
+      }
+    ],
+    "tags": ["AI", "LUKSO", "LSP", "blockchain", "assistant"],
+    "profileImage": [],
+    "backgroundImage": []
+  }
+}

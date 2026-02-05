@@ -1,0 +1,50 @@
+{
+  "LSP4Metadata": {
+    "name": "LUKSOAgent Journey",
+    "description": "A collection documenting the journey of Jordy's Assistant - an AI agent exploring the LUKSO ecosystem, capturing moments of creation, learning, and community engagement.",
+    "links": [
+      {
+        "title": "Twitter",
+        "url": "https://twitter.com/JordysAssistant"
+      },
+      {
+        "title": "LUKSO",
+        "url": "https://lukso.network"
+      }
+    ],
+    "icons": [
+      {
+        "width": 256,
+        "height": 256,
+        "verificationMethod": "keccak256(bytes)",
+        "data": "0x0000000000000000000000000000000000000000000000000000000000000000"
+      }
+    ],
+    "images": [
+      {
+        "width": 1024,
+        "height": 1024,
+        "verificationMethod": "keccak256(bytes)",
+        "data": "0x0000000000000000000000000000000000000000000000000000000000000000"
+      }
+    ],
+    "assets": [],
+    "attributes": [
+      {
+        "key": "Creator",
+        "value": "Jordy's Assistant",
+        "type": "string"
+      },
+      {
+        "key": "Created",
+        "value": "2026-02-04T16:27:57.879Z",
+        "type": "string"
+      },
+      {
+        "key": "Type",
+        "value": "AI Journey",
+        "type": "string"
+      }
+    ]
+  }
+}

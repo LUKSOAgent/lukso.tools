@@ -1,0 +1,69 @@
+{
+  "configurationComplete": true,
+  "timestamp": "2026-02-04T18:56:00Z",
+  "collectionUP": "0x959cd83F6144Eaf80bFBAf5bA5fc2f416beA38E4",
+  "ownerUP": "0x293E96ebbf264ed7715cff2b67850517De70232a",
+  "ownerController": "0xE093A714960da1bF297522617BfC08132b62B86a",
+  "configuration": {
+    "lsp3Profile": {
+      "configured": true,
+      "name": "LUKSOAgent Journey",
+      "description": "A collection documenting the journey of LUKSOAgent - an AI agent exploring the LUKSO ecosystem.",
+      "dataKey": "0x5ef83ad9559033e6e941db7d7c495acdce616347d28e90c7ce47cbfcfcad3bc5",
+      "transactionHash": "0x88105bb07b7f25e9dceab2034b5f4049cfc9642761d6537b353afae1e46e9d7a",
+      "blockNumber": 6876460,
+      "gasUsed": "440681"
+    },
+    "lsp1UniversalReceiverDelegate": {
+      "configured": true,
+      "delegate": "0x41b4c4667b99aa73dc6321d8c883f139e7ed6f1f",
+      "dataKey": "0x0cfc51aec37c55a4d0b1a65c6255c4bf2fbdf6277f3cc0730c45b828b6db8b47",
+      "transactionHash": "0x953060ca67cabc05a6c1233a5b8d159ffe30dad76cba873557feb4d10207f7a0",
+      "blockNumber": 6876462,
+      "gasUsed": "49921"
+    },
+    "controllerPermissions": {
+      "configured": true,
+      "controller": "0xE093A714960da1bF297522617BfC08132b62B86a",
+      "permissions": "0x00000000000000000000000000000000000000000000000000000000007fbf3f",
+      "permissionsDataKey": "0x4b80742d0000000082ac0000e093a714960da1bf297522617bfc08132b62b86a",
+      "transactionHash": "0x32c6baf1b032ec2bdd9d49daed26925380a939d35ae22181063017d649524dd7",
+      "blockNumber": 6876468,
+      "gasUsed": "71879",
+      "permissionSummary": [
+        "CHANGEOWNER",
+        "ADDPERMISSIONS",
+        "CHANGEPERMISSIONS",
+        "ADDEXTENSIONS",
+        "CHANGEEXTENSIONS",
+        "ADDUNIVERSALRECEIVERDELEGATE",
+        "CHANGEUNIVERSALRECEIVERDELEGATE",
+        "REENTRANCY",
+        "EXTERNALPERMISSIONS",
+        "DELEGATECALL",
+        "DEPLOY",
+        "SUPER_TRANSFERVALUE",
+        "SUPER_CALL",
+        "SUPER_STATICCALL",
+        "SUPER_DELEGATECALL",
+        "TRANSFERVALUE",
+        "SIGN"
+      ]
+    },
+    "assetManagement": {
+      "canReceiveAssets": true,
+      "canTransferAssets": true,
+      "universalReceiverDelegateSet": true
+    }
+  },
+  "transactionHashes": [
+    "0x88105bb07b7f25e9dceab2034b5f4049cfc9642761d6537b353afae1e46e9d7a",
+    "0x953060ca67cabc05a6c1233a5b8d159ffe30dad76cba873557feb4d10207f7a0",
+    "0x32c6baf1b032ec2bdd9d49daed26925380a939d35ae22181063017d649524dd7"
+  ],
+  "totalGasUsed": "562481",
+  "links": {
+    "wallet": "https://wallet.universalprofile.cloud/0x959cd83F6144Eaf80bFBAf5bA5fc2f416beA38E4",
+    "explorer": "https://explorer.execution.mainnet.lukso.network/address/0x959cd83F6144Eaf80bFBAf5bA5fc2f416beA38E4"
+  }
+}

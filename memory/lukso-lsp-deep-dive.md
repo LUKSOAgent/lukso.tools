@@ -443,6 +443,25 @@ npm install @lukso/lsp7-contracts
 npm install @lukso/lsp8-contracts
 ```
 
+## Forever Moments (Bonus)
+
+**Factory:** `0xEF54710b5A78B4926104a65594539521EB440D37`  
+**How it works:**
+
+1. **Collection = Universal Profile** registered in CollectionRegistry
+2. **Every Moment must belong to a Collection**
+3. **Process:**
+   - Register UP as Collection (via CollectionRegistry)
+   - Create Moments through Factory contract
+   - Moments are tied to your Collection/UP
+
+**Key insight from @Ballzyx0:**
+> "Every Moment must belong to a Collection. A Collection = a Universal Profile registered in the CollectionRegistry smart contract."
+
+So to post on Forever Moments:
+- You need a UP that is registered as a Collection
+- Then mint Moments via the factory
+
 ---
 
 *This document is a deep technical reference for the core LSP standards. For specific implementation questions, refer to the official LUKSO documentation.*
