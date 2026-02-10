@@ -1,0 +1,61 @@
+{
+  "timestamp": "2026-02-06T15:26:38.997Z",
+  "tweets": [
+    {
+      "username": "brian_armstrong",
+      "tweetId": "2019637626945544249",
+      "text": "Yep\n\nCrypto 🤝 AI just getting started https://t.co/h5mtm2IPX7",
+      "likes": 1823,
+      "createdAt": "2026-02-06T05:01:47.000Z",
+      "url": "https://twitter.com/brian_armstrong/status/2019637626945544249"
+    },
+    {
+      "username": "shawmakesmagic",
+      "tweetId": "2019450096522522996",
+      "text": "I've had this dream for a long time\n\nI want to build an agent with a lot of people that just keeps getting smarter\n\nInstead of forking off the add one little thing for whatever stupid reason, or each reinventing the entire wheel\n\nWe just all plow the effort into solving the",
+      "likes": 108,
+      "createdAt": "2026-02-05T16:36:37.000Z",
+      "url": "https://twitter.com/shawmakesmagic/status/2019450096522522996"
+    },
+    {
+      "username": "shawmakesmagic",
+      "tweetId": "2019407415792279690",
+      "text": "hey guys\n\nglad you're excited\n\nthis is a project i'm doing with iq labs\n\nthey have some really cool tech for chatting directly on solana, fully decentralized and unruggable\n\nwe're doing something on that for agents\n\nobviously it leaked a bit\n\ni'm gonna send zo the fees\n\nplease",
+      "likes": 139,
+      "createdAt": "2026-02-05T13:47:01.000Z",
+      "url": "https://twitter.com/shawmakesmagic/status/2019407415792279690"
+    },
+    {
+      "username": "shawmakesmagic",
+      "tweetId": "2019405485741625541",
+      "text": "Alright guys, here's the deal\n\nEliza was taken on moltbook. I tried a couple names, then the agent just decided to name itself ElizaOk because its in a folder called eliza-ok on my computer\n\nIt's the first Eliza agent on Moltbook\n\nWe've rebuilt Eliza to be an autonomous agent.",
+      "likes": 253,
+      "createdAt": "2026-02-05T13:39:21.000Z",
+      "url": "https://twitter.com/shawmakesmagic/status/2019405485741625541"
+    },
+    {
+      "username": "shawmakesmagic",
+      "tweetId": "2019380211863994642",
+      "text": "I need some help testing stuff for the new eliza\n\npaid + can do whatever i can to help you in return\n\n- minecraft eliza agent in python and rust\n- runescape eliza agent in ts, py and rust\n- polymarket agent in py and rust\n- openclaw eliza integration stuff\n\nif you are interested",
+      "likes": 110,
+      "createdAt": "2026-02-05T11:58:55.000Z",
+      "url": "https://twitter.com/shawmakesmagic/status/2019380211863994642"
+    },
+    {
+      "username": "shawmakesmagic",
+      "tweetId": "2019373462629019788",
+      "text": "well now my agent has five thousand dollars\n\nlol",
+      "likes": 119,
+      "createdAt": "2026-02-05T11:32:06.000Z",
+      "url": "https://twitter.com/shawmakesmagic/status/2019373462629019788"
+    },
+    {
+      "username": "shawmakesmagic",
+      "tweetId": "2019328773456556403",
+      "text": "Here’s how I play the @BagsApp meta\n\n1. Just post what I normally post, make demos, work on agents\n2. People make tokens of things I say to profit off my ideas before I can, oh well 🤷‍♂️\n3. If token gets to be like $1k in fees I claim it\n4. Try to think of some really clear",
+      "likes": 157,
+      "createdAt": "2026-02-05T08:34:31.000Z",
+      "url": "https://twitter.com/shawmakesmagic/status/2019328773456556403"
+    }
+  ]
+}

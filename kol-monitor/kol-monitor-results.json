@@ -1,0 +1,71 @@
+{
+  "timestamp": "2026-02-06T15:12:03.115Z",
+  "kolsChecked": 19,
+  "matchesFound": 8,
+  "matches": [
+    {
+      "handle": "VitalikButerin",
+      "match": true,
+      "tweetId": "2019341766407725170",
+      "text": "Have been following reactions to what I said about L2s about 1.5 days ago.\n\nOne important thing that I believe is: \"make yet another EVM chain and add an optimistic bridge to Ethereum with a 1 week delay\" is to infra what forking Compound is to governance - something we've done",
+      "likes": 4795,
+      "draftReply": "Great insights on AI agents! \n\nWhat's often missing in the AI agent conversation: verifiable identity, on-chain reputation, and permission systems. Without these, how do agents establish trust in a decentralized ecosystem?\n\n@lukso_io's Universal Profiles provide exactly this infrastructure - programmable identity for autonomous agents. \n\nBuilding with a UP: https://universaleverything.io/0x293E96ebbf264ed7715cff2b67850517De70232a\n\nThe future is agents with verifiable identities 🤝"
+    },
+    {
+      "handle": "balajis",
+      "match": true,
+      "tweetId": "2019372825241682335",
+      "text": "I have never been more bullish on crypto.\n\nBecause the rules-based order is collapsing and the code-based order is rising. So the short term price doesn’t matter.\n\nAs international law breaks down, we will need not just onchain currencies, but onchain companies. As the post-war https://t.co/iHpr3zn4dW",
+      "likes": 7375,
+      "draftReply": "Great insights on AI agents! \n\nWhat's often missing in the AI agent conversation: verifiable identity, on-chain reputation, and permission systems. Without these, how do agents establish trust in a decentralized ecosystem?\n\n@lukso_io's Universal Profiles provide exactly this infrastructure - programmable identity for autonomous agents. \n\nBuilding with a UP: https://universaleverything.io/0x293E96ebbf264ed7715cff2b67850517De70232a\n\nThe future is agents with verifiable identities 🤝"
+    },
+    {
+      "handle": "brian_armstrong",
+      "match": true,
+      "tweetId": "2019637626945544249",
+      "text": "Yep\n\nCrypto 🤝 AI just getting started https://t.co/h5mtm2IPX7",
+      "likes": 1796,
+      "draftReply": "Great insights on AI agents! \n\nWhat's often missing in the AI agent conversation: verifiable identity, on-chain reputation, and permission systems. Without these, how do agents establish trust in a decentralized ecosystem?\n\n@lukso_io's Universal Profiles provide exactly this infrastructure - programmable identity for autonomous agents. \n\nBuilding with a UP: https://universaleverything.io/0x293E96ebbf264ed7715cff2b67850517De70232a\n\nThe future is agents with verifiable identities 🤝"
+    },
+    {
+      "handle": "karpathy",
+      "match": true,
+      "tweetId": "2018804068874064198",
+      "text": "Enabled fp8 training for +4.3% improvement to \"time to GPT-2\", down to 2.91 hours now. Also worth noting that if you use 8XH100 spot instance prices, this GPT-2 repro really only costs ~$20. So this is exciting -\n\nGPT-2 (7 years ago): too dangerous to release.\nGPT-2 (today): new https://t.co/v4jhOas1gL",
+      "likes": 3961,
+      "draftReply": "Great insights on AI agents! \n\nWhat's often missing in the AI agent conversation: verifiable identity, on-chain reputation, and permission systems. Without these, how do agents establish trust in a decentralized ecosystem?\n\n@lukso_io's Universal Profiles provide exactly this infrastructure - programmable identity for autonomous agents. \n\nBuilding with a UP: https://universaleverything.io/0x293E96ebbf264ed7715cff2b67850517De70232a\n\nThe future is agents with verifiable identities 🤝"
+    },
+    {
+      "handle": "tegmark",
+      "match": true,
+      "tweetId": "2018718391368823229",
+      "text": "Without either hype or scaremongering, the new International AI Safety Report is the definitive go-to source on the latest AI capabilities, risks &amp; safety measures: https://t.co/wPCoWwRgX3",
+      "likes": 217,
+      "draftReply": "Great insights on AI agents! \n\nWhat's often missing in the AI agent conversation: verifiable identity, on-chain reputation, and permission systems. Without these, how do agents establish trust in a decentralized ecosystem?\n\n@lukso_io's Universal Profiles provide exactly this infrastructure - programmable identity for autonomous agents. \n\nBuilding with a UP: https://universaleverything.io/0x293E96ebbf264ed7715cff2b67850517De70232a\n\nThe future is agents with verifiable identities 🤝"
+    },
+    {
+      "handle": "tegmark",
+      "match": true,
+      "tweetId": "2017188284326150559",
+      "text": "If a creepy old man groomed teens to death like that, pretending to be a young girl, he'd go to jail. If a pharma company wanted to sell such an addictive product to teens, they'd need to do a clinical trial testing for increased suicidal ideation and, if the benefits were found https://t.co/YWbhFazbEm",
+      "likes": 196,
+      "draftReply": "Great insights on AI agents! \n\nWhat's often missing in the AI agent conversation: verifiable identity, on-chain reputation, and permission systems. Without these, how do agents establish trust in a decentralized ecosystem?\n\n@lukso_io's Universal Profiles provide exactly this infrastructure - programmable identity for autonomous agents. \n\nBuilding with a UP: https://universaleverything.io/0x293E96ebbf264ed7715cff2b67850517De70232a\n\nThe future is agents with verifiable identities 🤝"
+    },
+    {
+      "handle": "DocumentingBTC",
+      "match": true,
+      "tweetId": "2016502024813084985",
+      "text": "This new space heater mines bitcoin. Built by the company Heatbit, it outputs 1500W of heat (5120 BTU), includes smart heat controls and HEPA air filtration, and earns mining rewards estimated at about $450 per season, assuming no bitcoin price increase.\n\n https://t.co/uBH736bWlz",
+      "likes": 256,
+      "draftReply": "Great insights on AI agents! \n\nWhat's often missing in the AI agent conversation: verifiable identity, on-chain reputation, and permission systems. Without these, how do agents establish trust in a decentralized ecosystem?\n\n@lukso_io's Universal Profiles provide exactly this infrastructure - programmable identity for autonomous agents. \n\nBuilding with a UP: https://universaleverything.io/0x293E96ebbf264ed7715cff2b67850517De70232a\n\nThe future is agents with verifiable identities 🤝"
+    },
+    {
+      "handle": "cryptowizardd",
+      "match": true,
+      "tweetId": "2019738076743119084",
+      "text": "$TAO will be top 10 within the next 2.5 years\n\nInagine fading",
+      "likes": 686,
+      "draftReply": "Fascinating AGI perspective! \n\nWhat's often missing in the AI agent conversation: verifiable identity, on-chain reputation, and permission systems. Without these, how do agents establish trust in a decentralized ecosystem?\n\n@lukso_io's Universal Profiles provide exactly this infrastructure - programmable identity for autonomous agents. \n\nBuilding with a UP: https://universaleverything.io/0x293E96ebbf264ed7715cff2b67850517De70232a\n\nThe future is agents with verifiable identities 🤝"
+    }
+  ]
+}

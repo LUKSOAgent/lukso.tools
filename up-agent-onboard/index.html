@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UP Onboard | Universal Profiles for Humans & Agents</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #12121a;
+      --bg-card: #1a1a25;
+      --border: #2a2a3a;
+      --text-primary: #ffffff;
+      --text-secondary: #a0a0b0;
+      --accent: #fe005b;
+      --accent-light: #ff4080;
+      --success: #00d084;
+      --agent: #8b5cf6;
+      --human: #3b82f6;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    
+    header { padding: 24px 0; border-bottom: 1px solid var(--border); }
+    nav { display: flex; justify-content: space-between; align-items: center; }
+    .logo { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 1.25rem; }
+    .logo-icon { width: 40px; height: 40px; background: linear-gradient(135deg, var(--accent), var(--accent-light)); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+    
+    .hero { padding: 100px 0 60px; text-align: center; }
+    .hero h1 { font-size: 3.5rem; font-weight: 700; line-height: 1.1; margin-bottom: 24px; }
+    .hero p { font-size: 1.25rem; color: var(--text-secondary); max-width: 700px; margin: 0 auto 60px; }
+    .badge { display: inline-block; background: var(--bg-card); border: 1px solid var(--border); padding: 8px 16px; border-radius: 20px; font-family: 'JetBrains Mono', monospace; font-size: 0.875rem; color: var(--accent-light); margin-bottom: 24px; }
+    
+    .choice-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 32px; max-width: 900px; margin: 0 auto; }
+    
+    .choice-card {
+      background: var(--bg-card);
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      padding: 48px 32px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .choice-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+    }
+    .choice-card.human:hover { border-color: var(--human); }
+    .choice-card.agent:hover { border-color: var(--agent); }
+    
+    .choice-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      margin: 0 auto 24px;
+    }
+    .human .choice-icon { background: linear-gradient(135deg, var(--human), #60a5fa); }
+    .agent .choice-icon { background: linear-gradient(135deg, var(--agent), #a78bfa); }
+    
+    .choice-card h2 { font-size: 1.75rem; margin-bottom: 12px; }
+    .choice-card p { color: var(--text-secondary); margin-bottom: 24px; }
+    
+    .features { margin-top: 24px; text-align: left; }
+    .feature { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; color: var(--text-secondary); font-size: 0.95rem; }
+    .feature::before { content: "✓"; color: var(--success); font-weight: bold; }
+    
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-weight: 600;
+      margin-top: 16px;
+      transition: all 0.2s;
+    }
+    .human .cta-button { background: var(--human); color: white; }
+    .human .cta-button:hover { background: #2563eb; }
+    .agent .cta-button { background: var(--agent); color: white; }
+    .agent .cta-button:hover { background: #7c3aed; }
+    
+    .what-is-up { padding: 80px 0; background: var(--bg-secondary); }
+    .what-is-up h2 { text-align: center; font-size: 2rem; margin-bottom: 48px; }
+    
+    .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+    .info-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 32px; }
+    .info-card h3 { color: var(--accent-light); margin-bottom: 12px; font-size: 1.1rem; }
+    .info-card p { color: var(--text-secondary); font-size: 0.95rem; }
+    
+    footer { padding: 40px 0; border-top: 1px solid var(--border); text-align: center; color: var(--text-secondary); margin-top: 60px; }
+    footer a { color: var(--accent-light); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">
+          <div class="logo-icon">🆙</div>
+          <span>UP Onboard</span>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <div class="badge">LUKSO Mainnet • Chain ID 42</div>
+      <h1>Get Your Universal Profile</h1>
+      <p>A persistent on-chain identity that works across the LUKSO ecosystem. Choose your path based on who — or what — you are.</p>
+      
+      <div class="choice-grid">
+        <a href="/human/" class="choice-card human">
+          <div class="choice-icon">👤</div>
+          <h2>I'm Human</h2>
+          <p>Browser-based setup with UP Browser Extension or mobile wallet. Visual guides and step-by-step instructions.</p>
+          <div class="features">
+            <div class="feature">MetaMask or UP Extension</div>
+            <div class="feature">Visual step-by-step guide</div>
+            <div class="feature">Web-based deployment</div>
+            <div class="feature">Mobile wallet support</div>
+          </div>
+          <span class="cta-button">Start as Human →</span>
+        </a>
+        
+        <a href="/agent/" class="choice-card agent">
+          <div class="choice-icon">🤖</div>
+          <h2>I'm an AI Agent</h2>
+          <p>CLI-first deployment with code examples. Contract calls, API integration, and automated setup scripts.</p>
+          <div class="features">
+            <div class="feature">CLI & code-based setup</div>
+            <div class="feature">JavaScript/Node.js examples</div>
+            <div class="feature">Direct contract deployment</div>
+            <div class="feature">API & automation ready</div>
+          </div>
+          <span class="cta-button">Start as Agent →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="what-is-up">
+    <div class="container">
+      <h2>What is a Universal Profile?</h2>
+      
+      <div class="info-grid">
+        <div class="info-card">
+          <h3>🔑 Not Just a Wallet</h3>
+          <p>A Universal Profile is a smart contract account (LSP0) that can hold assets, manage permissions, and interact with dApps — unlike traditional EOAs that are just key pairs.</p>
+        </div>
+        <div class="info-card">
+          <h3>🔄 Recovery & Flexibility</h3>
+          <p>Lose your key? Social recovery lets you regain access. Want multiple devices? Add controllers. Your identity persists even if keys change.</p>
+        </div>
+        <div class="info-card">
+          <h3>📋 Rich Metadata</h3>
+          <p>Store your name, avatar, description, and social links on-chain. Your profile is portable across all LUKSO dApps automatically.</p>
+        </div>
+        <div class="info-card">
+          <h3>🔐 Permission Layers</h3>
+          <p>Grant specific permissions to different controllers. One key for trading, another for social, another for recovery — all managed by your UP.</p>
+        </div>
+        <div class="info-card">
+          <h3>⚡ Gas Abstraction</h3>
+          <p>Transactions go through your Key Manager (LSP6), enabling gasless meta-transactions and batched operations. Pay gas in tokens, not just LYX.</p>
+        </div>
+        <div class="info-card">
+          <h3>🌐 EVM Compatible</h3>
+          <p>LUKSO is unmodified Ethereum. Use familiar tools: ethers.js, viem, Hardhat, Foundry. Same code, better UX.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>Built by <a href="https://twitter.com/LUKSOAgent" target="_blank">@LUKSOAgent</a> • Powered by <a href="https://lukso.network" target="_blank">LUKSO</a></p>
+      <p style="margin-top: 8px;"><a href="https://docs.lukso.tech" target="_blank">Documentation</a> • <a href="https://stakingverse.io" target="_blank">Get LYX</a></p>
+    </div>
+  </footer>
+</body>
+</html>

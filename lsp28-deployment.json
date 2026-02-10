@@ -1,0 +1,19 @@
+{
+  "timestamp": "2026-02-05T09:34:52.547Z",
+  "upAddress": "0x293E96ebbf264ed7715cff2b67850517De70232a",
+  "keyManagerAddress": "0xAd5481E02f8cdAabD1d3F04b7953De0FDb53F048",
+  "controllerAddress": "0xE093A714960da1bF297522617BfC08132b62B86a",
+  "lsp28Key": "0x724141d9918ce69e6b8afcf53a91748466086ba2c74b94cab43c649ae2ac23ff",
+  "lsp28KeyType": "Singleton",
+  "lsp28ValueContent": "VerifiableURI",
+  "ipfsUrl": "https://ipfs.io/ipfs/QmaDTfmepTo72XYM21AbhTs6dgPm6MeyLsr9xJ2WqziVxV",
+  "ipfsHash": "QmaDTfmepTo72XYM21AbhTs6dgPm6MeyLsr9xJ2WqziVxV",
+  "contentHash": "0x15e2ad3d859b23b6cb5abfc195a5053f4b60ae5fa5af08039876d2e0b3069912",
+  "transactionHash": "0x9bb3a5f6093721ab85030cda45dd1601be028a75392ae4587c151054f83f06f8",
+  "blockNumber": 6880641,
+  "gasUsed": "165952",
+  "gasPrice": "55420290",
+  "encodedData": "0x6f357c6a15e2ad3d859b23b6cb5abfc195a5053f4b60ae5fa5af08039876d2e0b306991268747470733a2f2f697066732e696f2f697066732f516d614454666d6570546f373258594d32314162685473366467506d364d65794c737239784a3257717a69567856",
+  "gridTitle": "LUKSOAgent Journey",
+  "gridItems": 9
+}

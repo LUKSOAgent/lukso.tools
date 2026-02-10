@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "skills": {
+    "bird": {
+      "version": "1.0.0",
+      "installedAt": 1770324188807
+    },
+    "universal-profile": {
+      "version": "0.3.5",
+      "installedAt": 1770589323588
+    }
+  }
+}

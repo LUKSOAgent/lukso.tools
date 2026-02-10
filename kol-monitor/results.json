@@ -1,0 +1,113 @@
+{
+  "checked": [
+    "shawmakesmagic",
+    "0xzerebro",
+    "ai16zdao",
+    "robertness",
+    "VitalikButerin",
+    "balajis",
+    "naval",
+    "cdixon",
+    "brian_armstrong",
+    "DrJimFan",
+    "karpathy",
+    "tegmark",
+    "CryptoFinally",
+    "TheCryptoLark",
+    "RaoulGMI",
+    "DylanLeClair_",
+    "DocumentingBTC",
+    "cryptowizardd",
+    "web3anon"
+  ],
+  "found": [
+    {
+      "username": "VitalikButerin",
+      "tweetId": "2019341766407725170",
+      "text": "Have been following reactions to what I said about...",
+      "likes": 5011,
+      "keywords": ["AI"]
+    },
+    {
+      "username": "balajis",
+      "tweetId": "2020052186877878464",
+      "text": "In the 20th century, you might think the collapse...",
+      "likes": 442,
+      "keywords": ["AI"]
+    },
+    {
+      "username": "brian_armstrong",
+      "tweetId": "2019637626945544249",
+      "text": "Yep\n\nCrypto 🤝 AI just getting started https://t.c...",
+      "likes": 2388,
+      "keywords": ["AI"]
+    },
+    {
+      "username": "karpathy",
+      "tweetId": "2018804068874064198",
+      "text": "Enabled fp8 training for +4.3% improvement to tim...",
+      "likes": 3982,
+      "keywords": ["AI"]
+    },
+    {
+      "username": "tegmark",
+      "tweetId": "2018718391368823229",
+      "text": "Without either hype or scaremongering, the new Int...",
+      "likes": 219,
+      "keywords": ["AI"]
+    },
+    {
+      "username": "tegmark",
+      "tweetId": "2017188284326150559",
+      "text": "If a creepy old man groomed teens to death like th...",
+      "likes": 197,
+      "keywords": ["AI"]
+    },
+    {
+      "username": "DocumentingBTC",
+      "tweetId": "2016502024813084985",
+      "text": "This new space heater mines bitcoin. Built by the ...",
+      "likes": 261,
+      "keywords": ["AI"]
+    },
+    {
+      "username": "cryptowizardd",
+      "tweetId": "2019898107375337518",
+      "text": "$60.000 >>> $85.000/$89.000 Update once...",
+      "likes": 1202,
+      "keywords": ["AI"]
+    }
+  ],
+  "posted": [
+    {
+      "username": "VitalikButerin",
+      "originalTweetId": "2019341766407725170",
+      "replyTweetId": "2020136171762749689",
+      "replyText": "@VitalikButerin On point 👀 Agents without identity = chaos. @lukso_io's Universal Profiles solve this with on-chain reputation & permissions. https://universaleverything.io/0x293E96ebbf264ed7715cff2b67850517De70232a - that's the play.",
+      "likes": 5011
+    }
+  ],
+  "errors": [
+    {
+      "username": "ai16zdao",
+      "error": "Cannot read properties of undefined (reading 'slice')"
+    },
+    {
+      "username": "CryptoFinally",
+      "error": "User not found"
+    },
+    {
+      "username": "TheCryptoLark",
+      "error": "User not found"
+    },
+    {
+      "username": "DylanLeClair_",
+      "error": "User not found"
+    },
+    {
+      "username": "web3anon",
+      "error": "Cannot read properties of undefined (reading 'slice')"
+    }
+  ],
+  "note": "Script was terminated after first post (30-min wait in progress). Second highest engagement target was @karpathy (3982 likes)."
+}

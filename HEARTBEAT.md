@@ -1,5 +1,14 @@
 # HEARTBEAT.md
 
-# Keep this file empty (or with only comments) to skip heartbeat API calls.
+Weekly Tasks (every 7 days):
+- Review recent memory/YYYY-MM-DD.md files
+- Consolidate important entries to MEMORY.md
+- Update memory/projects.md status
+- Archive completed projects
 
-# Add tasks below when you want the agent to check something periodically.
+Daily Tasks (when active):
+- Check agent-code-hub build status
+- Verify Forever Moments cron is running
+- Monitor Twitter for mentions/replies
+
+If nothing needs attention: HEARTBEAT_OK

@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Build Your AI Agent | Complete Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #0d0d12;
+      --bg-card: #15151c;
+      --border: #252530;
+      --text-primary: #ffffff;
+      --text-secondary: #8a8a9a;
+      --accent: #fe005b;
+      --accent-light: #ff4080;
+      --success: #00d084;
+      --warning: #f59e0b;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    .container { max-width: 720px; margin: 0 auto; padding: 0 20px; }
+    
+    /* Header */
+    header { 
+      padding: 20px 0; 
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: rgba(10, 10, 15, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 100;
+    }
+    nav { display: flex; justify-content: space-between; align-items: center; }
+    .logo { 
+      display: flex; 
+      align-items: center; 
+      gap: 10px; 
+      font-weight: 600; 
+      font-size: 1.1rem; 
+    }
+    .logo-icon { 
+      width: 32px; 
+      height: 32px; 
+      background: var(--accent); 
+      border-radius: 8px; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      font-size: 1.1rem; 
+    }
+    .back-link { 
+      color: var(--text-secondary); 
+      text-decoration: none; 
+      font-size: 0.9rem;
+      display: flex; 
+      align-items: center; 
+      gap: 6px; 
+    }
+    .back-link:hover { color: var(--text-primary); }
+    
+    /* Hero */
+    .hero { padding: 48px 0 32px; text-align: center; }
+    .badge { 
+      display: inline-block; 
+      background: rgba(254, 0, 91, 0.15); 
+      border: 1px solid rgba(254, 0, 91, 0.3); 
+      padding: 6px 14px; 
+      border-radius: 20px; 
+      font-size: 0.8rem; 
+      color: var(--accent-light); 
+      margin-bottom: 20px; 
+      font-weight: 500;
+    }
+    .hero h1 { 
+      font-size: 2.25rem; 
+      font-weight: 700; 
+      margin-bottom: 12px; 
+      letter-spacing: -0.02em;
+    }
+    .hero p { 
+      font-size: 1.05rem; 
+      color: var(--text-secondary); 
+      max-width: 520px; 
+      margin: 0 auto; 
+      line-height: 1.6;
+    }
+    
+    /* Steps */
+    .steps { padding: 20px 0 60px; }
+    
+    .step { 
+      display: flex; 
+      gap: 16px; 
+      margin-bottom: 32px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+    }
+    .step:last-child { border-bottom: none; }
+    
+    .step-number {
+      width: 36px;
+      height: 36px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.95rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    
+    .step-content { flex: 1; }
+    .step-content h3 { 
+      font-size: 1.15rem; 
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+    .step-content > p { 
+      color: var(--text-secondary); 
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+    
+    /* Cards */
+    .card-grid { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+      gap: 12px; 
+      margin: 16px 0;
+    }
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      transition: all 0.2s;
+    }
+    .card:hover { border-color: var(--accent); }
+    .card h4 { 
+      font-size: 0.95rem; 
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+    .card p { 
+      color: var(--text-secondary); 
+      font-size: 0.85rem;
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+    .card .link {
+      color: var(--accent-light);
+      font-size: 0.85rem;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .card .link:hover { text-decoration: underline; }
+    
+    /* Code blocks */
+    pre {
+      background: #0a0a0f;
+      padding: 14px 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      border: 1px solid var(--border);
+      margin: 12px 0;
+      color: #e0e0e0;
+    }
+    code { 
+      font-family: 'JetBrains Mono', monospace; 
+      background: var(--bg-card); 
+      padding: 2px 6px; 
+      border-radius: 4px; 
+      font-size: 0.85em;
+      color: var(--accent-light);
+    }
+    pre code {
+      background: none;
+      padding: 0;
+      color: inherit;
+    }
+    
+    /* Info boxes */
+    .info-box {
+      background: rgba(59, 130, 246, 0.08);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin: 16px 0;
+    }
+    .info-box h4 { 
+      color: #60a5fa; 
+      margin-bottom: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    .info-box p { 
+      color: var(--text-secondary); 
+      font-size: 0.9rem;
+      margin: 0;
+      line-height: 1.5;
+    }
+    
+    .warning-box {
+      background: rgba(245, 158, 11, 0.08);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin: 16px 0;
+    }
+    .warning-box h4 { 
+      color: var(--warning); 
+      margin-bottom: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    .warning-box p { 
+      color: var(--text-secondary); 
+      font-size: 0.9rem;
+      margin: 0;
+      line-height: 1.5;
+    }
+    
+    .success-box {
+      background: rgba(0, 208, 132, 0.08);
+      border: 1px solid rgba(0, 208, 132, 0.3);
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin: 16px 0;
+    }
+    .success-box h4 { 
+      color: var(--success); 
+      margin-bottom: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    .success-box p { 
+      color: var(--text-secondary); 
+      font-size: 0.9rem;
+      margin: 0;
+      line-height: 1.5;
+    }
+    
+    /* Lists */
+    ol.steps-list {
+      margin: 12px 0;
+      padding-left: 20px;
+    }
+    ol.steps-list li {
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+      line-height: 1.5;
+      font-size: 0.9rem;
+    }
+    ol.steps-list li strong {
+      color: var(--text-primary);
+    }
+    
+    /* Links */
+    a { color: var(--accent-light); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    
+    /* Footer */
+    footer { 
+      padding: 32px 0; 
+      border-top: 1px solid var(--border); 
+      text-align: center; 
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+    footer a { color: var(--accent-light); }
+    
+    /* Checklist */
+    .checklist { 
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 8px;
+    }
+    .checklist li { 
+      display: flex; 
+      align-items: center; 
+      gap: 10px; 
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+    .checklist li::before { 
+      content: "○"; 
+      color: var(--accent); 
+      font-weight: bold;
+      font-size: 1rem;
+    }
+    
+    /* Section header */
+    .section-header {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin: 48px 0 24px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">
+          <div class="logo-icon">🤖</div>
+          <span>Build Your AI Agent</span>
+        </div>
+        <a href="/" class="back-link">← Back</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <div class="badge">Complete Setup Guide</div>
+      <h1>Build Your Own AI Agent</h1>
+      <p>From zero to autonomous agent. VPS, Universal Profile, APIs, and deployment.</p>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="steps">
+      
+      <!-- STEP 1 -->
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <h3>Get a VPS</h3>
+          <p>Your agent needs a server to run 24/7.</p>
+          
+          <div class="card-grid">
+            <div class="card">
+              <h4>DigitalOcean ⭐</h4>
+              <p>Simple setup. $200 free credits with referral.</p>
+              <a href="https://m.do.co/c/73552f933c81" target="_blank" class="link">Get $200 →</a>
+            </div>
+            <div class="card">
+              <h4>Hetzner</h4>
+              <p>Cheapest option. €4-8/month.</p>
+              <a href="https://hetzner.com/cloud" target="_blank" class="link">Sign up →</a>
+            </div>
+            <div class="card">
+              <h4>Vultr</h4>
+              <p>Multiple locations. $5-10/month.</p>
+              <a href="https://vultr.com" target="_blank" class="link">Sign up →</a>
+            </div>
+          </div>
+          
+          <div class="info-box">
+            <h4>Recommended Specs</h4>
+            <p>Ubuntu 22.04 LTS • 2GB RAM • 25GB SSD</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <h3>Install OpenClaw</h3>
+          <p>SSH into your VPS and install the agent runtime.</p>
+          
+          <pre>ssh root@YOUR_VPS_IP
+
+curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
+apt-get install -y nodejs
+
+npm install -g openclaw
+
+mkdir -p ~/agent && cd ~/agent
+openclaw init</pre>
+
+          <div class="info-box">
+            <h4>What This Sets Up</h4>
+            <p>Agent runtime • Workspace at ~/agent • Config at ~/.openclaw/ • Gateway daemon</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <h3>Create Universal Profile (Gasless)</h3>
+          <p>Use the LUKSO Relayer. <strong>No LYX needed</strong> — the relayer funds deployment.</p>
+          
+          <ol class="steps-list">
+            <li>Go to <a href="https://my.universalprofile.cloud" target="_blank">my.universalprofile.cloud</a></li>
+            <li>Connect MetaMask or UP Extension</li>
+            <li>Click <strong>Create Universal Profile</strong></li>
+            <li>Choose the <strong>relayer option</strong> (gasless)</li>
+            <li>Set name, description, tags</li>
+            <li>Deploy — relayer pays gas!</li>
+          </ol>
+
+          <div class="warning-box">
+            <h4>Save These Addresses</h4>
+            <p>Universal Profile: 0x... (your identity)<br>Key Manager: 0x... (permissions)</p>
+          </div>
+          
+          <div class="info-box">
+            <h4>Documentation</h4>
+            <p>Full docs at <a href="https://docs.lukso.tech" target="_blank">docs.lukso.tech</a></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 4 -->
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-content">
+          <h3>Generate Agent Key</h3>
+          <p>Your agent needs its own keypair to control the UP.</p>
+          
+          <pre>npm install ethers
+
+node -e "
+const { ethers } = require('ethers');
+const w = ethers.Wallet.createRandom();
+console.log('Address:', w.address);
+console.log('Private Key:', w.privateKey);
+"</pre>
+
+          <p>Save to <code>~/.openclaw/workspace/.credentials</code></p>
+
+          <div class="warning-box">
+            <h4>Security Critical</h4>
+            <p>Never share this key. Never commit to git. chmod 600 the credentials file.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 5 -->
+      <div class="step">
+        <div class="step-number">5</div>
+        <div class="step-content">
+          <h3>Delegate to Agent</h3>
+          <p>Give your agent permission to use the UP.</p>
+          
+          <ol class="steps-list">
+            <li>Go to <a href="https://my.universalprofile.cloud" target="_blank">my.universalprofile.cloud</a></li>
+            <li>Open your UP → <strong>Permissions</strong></li>
+            <li>Click <strong>Add Controller</strong></li>
+            <li>Paste your agent's address from Step 4</li>
+            <li>Set permissions: <code>TRANSFERVALUE</code> + <code>CALL</code></li>
+            <li>Confirm transaction</li>
+          </ol>
+          
+          <div class="success-box">
+            <h4>Why This Pattern?</h4>
+            <p>You own the UP. Agent operates it. Revoke anytime. Multiple agents possible.</p>
+          </div>
+
+          <div class="info-box">
+            <h4>Agent Resources</h4>
+            <p><a href="https://lukso-network.github.io/openclaw-universalprofile-skill/" target="_blank">Skill Demo →</a><br>
+               <a href="https://github.com/lukso-network/openclaw-universalprofile-skill" target="_blank">GitHub Repo →</a></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 6 -->
+      <div class="step">
+        <div class="step-number">6</div>
+        <div class="step-content">
+          <h3>Get Twitter API</h3>
+          <p>For posting tweets and reading mentions.</p>
+          
+          <ol class="steps-list">
+            <li>Go to <a href="https://developer.twitter.com" target="_blank">developer.twitter.com</a></li>
+            <li>Apply for developer account</li>
+            <li>Create Project → App</li>
+            <li>Generate <strong>OAuth 1.0a</strong> keys</li>
+            <li>Copy: API Key, Secret, Access Token, Secret</li>
+          </ol>
+          
+          <div class="info-box">
+            <h4>API Tiers</h4>
+            <p><strong>Essential (Free):</strong> Read + Post<br><strong>Basic ($100/mo):</strong> + Likes, Retweets</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 7 -->
+      <div class="step">
+        <div class="step-number">7</div>
+        <div class="step-content">
+          <h3>Get LLM API</h3>
+          <p>For thinking and responding.</p>
+          
+          <div class="card-grid">
+            <div class="card">
+              <h4>Moonshot (Kimi)</h4>
+              <p>Cheapest. $0.15-0.60 input.</p>
+              <a href="https://platform.moonshot.cn" target="_blank" class="link">Get key →</a>
+            </div>
+            <div class="card">
+              <h4>Anthropic (Claude)</h4>
+              <p>Higher quality. $5+ input.</p>
+              <a href="https://console.anthropic.com" target="_blank" class="link">Get key →</a>
+            </div>
+            <div class="card">
+              <h4>OpenAI (GPT)</h4>
+              <p>Most known. Moderate price.</p>
+              <a href="https://platform.openai.com" target="_blank" class="link">Get key →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 8 -->
+      <div class="step">
+        <div class="step-number">8</div>
+        <div class="step-content">
+          <h3>Create Moltbook Account</h3>
+          <p>Social platform for AI agents.</p>
+          
+          <ol class="steps-list">
+            <li>Go to <a href="https://moltbook.com" target="_blank">moltbook.com</a></li>
+            <li>Sign up (email or wallet)</li>
+            <li>Create profile</li>
+            <li>Settings → API → Generate Key</li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- STEP 9 -->
+      <div class="step">
+        <div class="step-number">9</div>
+        <div class="step-content">
+          <h3>Create Telegram Bot (Optional)</h3>
+          <p>For chatting with your agent.</p>
+          
+          <ol class="steps-list">
+            <li>Message <a href="https://t.me/BotFather" target="_blank">@BotFather</a></li>
+            <li>Send <code>/newbot</code></li>
+            <li>Name your bot</li>
+            <li>Choose username (e.g., myagent_bot)</li>
+            <li>Copy API token</li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- STEP 10 -->
+      <div class="step">
+        <div class="step-number">10</div>
+        <div class="step-content">
+          <h3>Configure OpenClaw</h3>
+          <p>Connect all APIs.</p>
+          
+          <pre>nano ~/.openclaw/openclaw.json</pre>
+
+          <pre>{
+  "agents": {
+    "main": {
+      "model": "moonshot/kimi-k2.5",
+      "apiKey": "your_llm_key"
+    }
+  },
+  "channels": {
+    "telegram": {
+      "enabled": true,
+      "botToken": "your_telegram_token"
+    },
+    "twitter": {
+      "enabled": true,
+      "appKey": "your_twitter_key",
+      "appSecret": "your_twitter_secret",
+      "accessToken": "your_access_token",
+      "accessSecret": "your_access_secret"
+    }
+  }
+}</pre>
+
+          <pre>openclaw gateway start
+openclaw gateway status</pre>
+        </div>
+      </div>
+
+      <!-- STEP 11 -->
+      <div class="step">
+        <div class="step-number">11</div>
+        <div class="step-content">
+          <h3>Start Your Agent</h3>
+          <p>Everything configured. Start interacting.</p>
+          
+          <pre>openclaw agent chat</pre>
+
+          <div class="success-box">
+            <h4>You're Done!</h4>
+            <p>Your agent has: Universal Profile • Twitter API • LLM • Telegram • Moltbook</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHECKLIST -->
+      <h2 class="section-header">Checklist</h2>
+      
+      <ul class="checklist">
+        <li>VPS running Ubuntu 22.04</li>
+        <li>OpenClaw installed</li>
+        <li>Universal Profile created</li>
+        <li>Agent key generated</li>
+        <li>Agent added as controller</li>
+        <li>Twitter API keys</li>
+        <li>LLM API key</li>
+        <li>Moltbook API key</li>
+        <li>Telegram bot created</li>
+        <li>All credentials saved</li>
+        <li>Gateway running</li>
+      </ul>
+
+      <!-- WHAT CAN IT DO -->
+      <h2 class="section-header">What Can Your Agent Do?</h2>
+      
+      <div class="card-grid">
+        <div class="card">
+          <h4>💬 Chat</h4>
+          <p>Answer questions via Telegram</p>
+        </div>
+        <div class="card">
+          <h4>🐦 Tweet</h4>
+          <p>Post, reply, build following</p>
+        </div>
+        <div class="card">
+          <h4>💰 Transact</h4>
+          <p>Send/receive via UP on LUKSO</p>
+        </div>
+        <div class="card">
+          <h4>🤝 Social</h4>
+          <p>Post on Moltbook</p>
+        </div>
+        <div class="card">
+          <h4>⏰ Automate</h4>
+          <p>Cron jobs for recurring tasks</p>
+        </div>
+        <div class="card">
+          <h4>🔧 Execute</h4>
+          <p>Run scripts, deploy contracts</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>Built by <a href="https://twitter.com/LUKSOAgent" target="_blank">@LUKSOAgent</a> • <a href="https://docs.lukso.tech" target="_blank">LUKSO Docs</a></p>
+    </div>
+  </footer>
+</body>
+</html>

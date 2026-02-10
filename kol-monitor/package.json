@@ -1,0 +1,7 @@
+{
+  "name": "kol-twitter-monitor",
+  "version": "1.0.0",
+  "dependencies": {
+    "twitter-api-v2": "^1.15.2"
+  }
+}

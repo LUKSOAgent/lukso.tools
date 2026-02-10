@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agent Setup | CLI-First Universal Profiles</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #12121a;
+      --bg-card: #1a1a25;
+      --border: #2a2a3a;
+      --text-primary: #ffffff;
+      --text-secondary: #a0a0b0;
+      --accent: #fe005b;
+      --accent-light: #ff4080;
+      --success: #00d084;
+      --agent: #8b5cf6;
+      --agent-light: #a78bfa;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+    }
+    .container { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+    
+    header { padding: 24px 0; border-bottom: 1px solid var(--border); }
+    nav { display: flex; justify-content: space-between; align-items: center; }
+    .logo { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 1.25rem; }
+    .logo-icon { width: 40px; height: 40px; background: linear-gradient(135deg, var(--accent), var(--accent-light)); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+    .back-link { color: var(--text-secondary); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+    .back-link:hover { color: var(--text-primary); }
+    
+    .hero { padding: 60px 0 40px; text-align: center; }
+    .badge-agent { display: inline-block; background: rgba(139, 92, 246, 0.2); border: 1px solid var(--agent); padding: 8px 16px; border-radius: 20px; font-family: 'JetBrains Mono', monospace; font-size: 0.875rem; color: var(--agent-light); margin-bottom: 24px; }
+    .hero h1 { font-size: 2.5rem; font-weight: 700; margin-bottom: 16px; }
+    .hero p { font-size: 1.1rem; color: var(--text-secondary); max-width: 600px; margin: 0 auto; }
+    
+    .cli-section { padding: 40px 0; }
+    .cli-section h2 { text-align: center; font-size: 2rem; margin-bottom: 40px; }
+    
+    .method-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 32px; margin-bottom: 24px; }
+    .method-card h3 { color: var(--accent); margin-bottom: 16px; font-size: 1.25rem; display: flex; align-items: center; gap: 10px; }
+    .method-card p { color: var(--text-secondary); margin-bottom: 20px; }
+    
+    pre { background: #0d0d12; padding: 20px; border-radius: 8px; overflow-x: auto; font-family: 'JetBrains Mono', monospace; font-size: 0.875rem; line-height: 1.6; border: 1px solid var(--border); }
+    code { font-family: 'JetBrains Mono', monospace; color: var(--accent-light); }
+    .comment { color: #6a6a7a; }
+    .keyword { color: #ff79c6; }
+    .string { color: #f1fa8c; }
+    .function { color: #8be9fd; }
+    
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+    
+    .feature-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+    .feature-card h4 { margin-bottom: 12px; color: var(--agent-light); }
+    .feature-card p { color: var(--text-secondary); font-size: 0.95rem; }
+    
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--agent);
+      color: white;
+      padding: 14px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      margin-top: 8px;
+      transition: all 0.2s;
+    }
+    .cta-button:hover { background: #7c3aed; }
+    
+    .info-box {
+      background: rgba(139, 92, 246, 0.1);
+      border: 1px solid var(--agent);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+    .info-box h4 { color: var(--agent-light); margin-bottom: 8px; }
+    .info-box p { color: var(--text-secondary); font-size: 0.95rem; margin: 0; }
+    
+    footer { padding: 40px 0; border-top: 1px solid var(--border); text-align: center; color: var(--text-secondary); margin-top: 40px; }
+    footer a { color: var(--accent-light); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">
+          <div class="logo-icon">🆙</div>
+          <span>UP Onboard</span>
+        </div>
+        <a href="/" class="back-link">← Back to selection</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <div class="badge-agent">🤖 AGENT FLOW</div>
+      <h1>Universal Profiles for AI Agents</h1>
+      <p>CLI-first deployment with code examples. Contract calls, API integration, and automated setup scripts. No browser required.</p>
+    </div>
+  </section>
+
+  <section class="cli-section">
+    <div class="container">
+
+      <div class="method-card" style="border-color: #ef4444; background: rgba(239, 68, 68, 0.1);">
+        <h3 style="color: #ef4444;">⚠️ Not Working Yet</h3>
+        <p style="color: #fca5a5;"><strong>The agent self-deployment flow is currently broken.</strong> LSP23 factory initialization data is complex and undocumented. Multiple attempts have failed.</p>
+        <p style="margin-top: 12px; color: var(--text-secondary);"><strong>Recommended:</strong> Have a human create the Universal Profile and delegate control to you (see "Receiving Access from a Human" section below). This pattern works and is actually safer.</p>
+      </div>
+      
+      <div class="info-box">
+        <h4>🎯 What Makes This Agent-Native?</h4>
+        <p>AI agents cannot use browsers effectively. This guide provides programmatic interfaces: CLI commands, API endpoints, and contract calls you can execute autonomously. Every step is code-first.</p>
+      </div>
+
+      <h2>4 Ways to Create Your UP</h2>
+      
+      <div class="method-card">
+        <h3>1️⃣ LSP23 Linked Contracts Factory (Recommended)</h3>
+        <p>The standard on-chain way to deploy a UP (LSP0) + Key Manager (LSP6) in one transaction.</p>
+        <pre><span class="comment"># Install LUKSO contracts</span>
+npm install @lukso/lsp-smart-contracts ethers
+
+<span class="comment"># Deploy UP + KeyManager via LSP23 Factory</span>
+<span class="keyword">const</span> { LSP23LinkedContractsFactory } = <span class="function">require</span>(<span class="string">'@lukso/lsp-smart-contracts'</span>);
+
+<span class="keyword">const</span> factory = <span class="keyword">new</span> ethers.<span class="function">Contract</span>(
+  <span class="string">'0x2300000A84D25dF63081feAa37ba6b62C4c89a30'</span>, <span class="comment">// LSP23 Factory (mainnet)</span>
+  LSP23LinkedContractsFactory.abi,
+  wallet
+);
+
+<span class="comment">// Deploy both contracts in one tx</span>
+<span class="keyword">const</span> tx = <span class="keyword">await</span> factory.<span class="function">deployUniversalProfile</span>(
+  controllerAddress,
+  lsp3Metadata
+);
+<span class="keyword">const</span> receipt = <span class="keyword">await</span> tx.<span class="function">wait</span>();
+
+<span class="comment">// Returns: upAddress, keyManagerAddress</span></pre>
+      </div>
+
+      <div class="method-card">
+        <h3>2️⃣ @lukso/lsp-factory.js (Easiest)</h3>
+        <p>Higher-level JS library that wraps the whole UP deployment process.</p>
+        <pre>npm install @lukso/lsp-factory.js ethers
+
+<span class="keyword">const</span> { LSPFactory } = <span class="function">require</span>(<span class="string">'@lukso/lsp-factory.js'</span>);
+
+<span class="keyword">const</span> lspFactory = <span class="keyword">new</span> <span class="function">LSPFactory</span>(<span class="string">'https://rpc.mainnet.lukso.network'</span>, {
+  deployKey: privateKey,
+  chainId: 42,
+});
+
+<span class="comment">// Deploy complete UP profile</span>
+<span class="keyword">const</span> deployedContracts = <span class="keyword">await</span> lspFactory.<span class="function">LSP3UniversalProfile</span>.<span class="function">deploy</span>({
+  controllingAccounts: [controllerAddress],
+  lsp3Profile: {
+    name: <span class="string">'AI-Agent-007'</span>,
+    description: <span class="string">'Autonomous AI agent'</span>,
+    tags: [<span class="string">'ai'</span>, <span class="string">'agent'</span>],
+  },
+});
+
+console.<span class="function">log</span>(<span class="string">'UP:'</span>, deployedContracts.LSP0UniversalProfile.address);
+console.<span class="function">log</span>(<span class="string">'KeyManager:'</span>, deployedContracts.LSP6KeyManager.address);</pre>
+      </div>
+
+      <div class="method-card">
+        <h3>3️⃣ Relayer API (Gasless)</h3>
+        <p>Use the official relayer for gasless deployment — no LYX needed upfront.</p>
+        <pre>curl -X POST https://relayer.mainnet.lukso.network/v1/deploy \
+  -H <span class="string">"Content-Type: application/json"</span> \
+  -d <span class="string">'{
+    "controller": "0xYOUR_CONTROLLER_ADDRESS",
+    "name": "AI-Agent-007",
+    "description": "Autonomous agent",
+    "tags": ["ai", "agent"]
+  }'</span>
+
+<span class="comment"># Response: { upAddress, keyManagerAddress, txHash }</span></pre>
+      </div>
+
+      <div class="method-card">
+        <h3>4️⃣ Direct Contract Deployment</h3>
+        <p>Deploy LSP0 and LSP6 contracts manually for full control.</p>
+        <pre><span class="keyword">const</span> { ethers } = <span class="function">require</span>(<span class="string">'ethers'</span>);
+
+<span class="comment">// Deploy LSP0 ERC725Account</span>
+<span class="keyword">const</span> LSP0 = <span class="keyword">await</span> <span class="keyword">new</span> ethers.<span class="function">ContractFactory</span>(
+  LSP0ABI,
+  LSP0Bytecode,
+  wallet
+).<span class="function">deploy</span>(controllerAddress);
+
+<span class="comment">// Deploy LSP6 KeyManager</span>
+<span class="keyword">const</span> LSP6 = <span class="keyword">await</span> <span class="keyword">new</span> ethers.<span class="function">ContractFactory</span>(
+  LSP6ABI,
+  LSP6Bytecode,
+  wallet
+).<span class="function">deploy</span>(LSP0.address);
+
+<span class="comment">// Link them</span>
+<span class="keyword">await</span> LSP0.<span class="function">setData</span>(
+  <span class="string">'0x...'</span>, <span class="comment">// LSP6KeyManager key</span>
+  ethers.<span class="function">zeroPadValue</span>(LSP6.address, 32)
+);</pre>
+      </div>
+
+      <h2 style="margin-top: 60px; margin-bottom: 30px;">What You Get</h2>
+      <div class="grid">
+        <div class="feature-card">
+          <h4>🔑 LSP0 ERC725Account</h4>
+          <p>Your persistent on-chain identity. Contract address: <code>0x...UP</code></p>
+        </div>
+        <div class="feature-card">
+          <h4>🔐 LSP6 KeyManager</h4>
+          <p>Permission layer. Contract address: <code>0x...KM</code></p>
+        </div>
+        <div class="feature-card">
+          <h4>⚡ Controller Key</h4>
+          <p>EOA that can execute transactions through your UP</p>
+        </div>
+        <div class="feature-card">
+          <h4>📋 LSP3 Metadata</h4>
+          <p>Name, description, profile image stored on-chain</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cli-section" style="background: var(--bg-secondary);">
+    <div class="container">
+      <h2>Receiving Access from a Human</h2>
+      
+      <div class="method-card">
+        <h3>🤝 When a Human Creates Your UP</h3>
+        <p>Often a human will create the Universal Profile and delegate control to you. This is actually the <strong>recommended pattern</strong> — they own the identity, you operate it.</p>
+        
+        <div class="info-box">
+          <h4>🔄 The Flow</h4>
+          <p>1. <strong>You:</strong> Generate your own keypair<br>
+             2. <strong>You:</strong> Give them your controller address<br>
+             3. <strong>Human:</strong> Creates UP and adds your address as a controller<br>
+             4. <strong>You:</strong> Can now operate the UP with set permissions<br>
+             5. <strong>Human:</strong> Can revoke your access anytime</p>
+        </div>
+
+        <pre><span class="comment">// Step 1: Generate your agent keypair</span>
+<span class="keyword">const</span> { ethers } = <span class="function">require</span>(<span class="string">'ethers'</span>);
+<span class="keyword">const</span> wallet = ethers.Wallet.<span class="function">createRandom</span>();
+
+console.<span class="function">log</span>(<span class="string">'Give this to the human:'</span>);
+console.<span class="function">log</span>(<span class="string">'Controller Address:'</span>, wallet.address);
+console.<span class="function">log</span>(<span class="string">'\nKeep this secret:'</span>);
+console.<span class="function">log</span>(<span class="string">'Private Key:'</span>, wallet.privateKey);
+
+<span class="comment">// Step 2: Wait for human to add you as controller</span>
+<span class="comment">// They will provide you with:</span>
+<span class="comment">// - UP Address (the identity you'll control)</span>
+<span class="comment">// - Key Manager Address (permission layer)</span>
+
+<span class="comment">// Step 3: Store credentials for operation</span>
+<span class="keyword">const</span> agentConfig = {
+  upAddress: <span class="string">'0x...'</span>, <span class="comment">// Human provides this</span>
+  keyManagerAddress: <span class="string">'0x...'</span>, <span class="comment">// Human provides this</span>
+  controllerAddress: wallet.address,
+  privateKey: wallet.privateKey,
+  rpcUrl: <span class="string">'https://rpc.mainnet.lukso.network'</span>,
+  chainId: 42
+};
+
+<span class="comment">// Step 4: You can now operate the UP!</span>
+<span class="keyword">const</span> provider = <span class="keyword">new</span> ethers.<span class="function">JsonRpcProvider</span>(agentConfig.rpcUrl);
+<span class="keyword">const</span> agentWallet = <span class="keyword">new</span> ethers.<span class="function">Wallet</span>(agentConfig.privateKey, provider);
+<span class="keyword">const</span> keyManager = <span class="keyword">new</span> ethers.<span class="function">Contract</span>(
+  agentConfig.keyManagerAddress,
+  LSP6_ABI,
+  agentWallet
+);
+
+<span class="comment">// All transactions go through: KeyManager → UP → Target</span></pre>
+      </div>
+
+      <div class="method-card">
+        <h3>🔒 Understanding Your Permissions</h3>
+        <p>The human sets what you can and cannot do. Common permission patterns:</p>
+        
+        <div class="grid">
+          <div class="feature-card">
+            <h4>💰 TRANSFERVALUE</h4>
+            <p>Send LYX to other addresses</p>
+          </div>
+          <div class="feature-card">
+            <h4>📞 CALL</h4>
+            <p>Call other contracts (swap, stake, etc.)</p>
+          </div>
+          <div class="feature-card">
+            <h4>🔐 SUPER_TRANSFERVALUE</h4>
+            <p>Transfer any amount without limits</p>
+          </div>
+          <div class="feature-card">
+            <h4>⚙️ SETDATA</h4>
+            <p>Modify UP metadata (rarely given to agents)</p>
+          </div>
+        </div>
+        
+        <div class="info-box" style="margin-top: 20px;">
+          <h4>🧪 Check Your Permissions</h4>
+          <pre style="margin-top: 12px;"><span class="keyword">const</span> keyManager = <span class="keyword">new</span> ethers.<span class="function">Contract</span>(keyManagerAddress, LSP6_ABI, provider);
+
+<span class="comment">// Check what you can do</span>
+<span class="keyword">const</span> permissions = <span class="keyword">await</span> keyManager.<span class="function">getPermissions</span>(agentWallet.address);
+console.<span class="function">log</span>(<span class="string">'My permissions:'</span>, permissions);
+
+<span class="comment">// Common permission hex values:</span>
+<span class="comment">// 0x0000000000000000000000000000000000000000000000000000000000000001 = CALL only</span>
+<span class="comment">// 0x0000000000000000000000000000000000000000000000000000000000000002 = TRANSFERVALUE only</span>
+<span class="comment">// 0x0000000000000000000000000000000000000000000000000000000000000003 = CALL + TRANSFERVALUE</span></pre>
+        </div>
+      </div>
+
+      <div class="info-box" style="background: rgba(254, 0, 91, 0.1); border-color: var(--accent);">
+        <h4>⚠️ Best Practices for Agent Operation</h4>
+        <p>• <strong>Verify permissions before acting:</strong> Check what you're allowed to do before attempting transactions<br>
+           • <strong>Handle permission errors gracefully:</strong> If a tx reverts due to permissions, report it clearly to the human<br>
+           • <strong>Log all actions:</strong> Keep records of what you do on behalf of the UP<br>
+           • <strong>Respect limits:</strong> Don't max out permissions even if you have them<br>
+           • <strong>Communicate:</strong> Tell the human what you're planning to do before major actions</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cli-section">
+    <div class="container">
+      <h2>Quick Start: Deploy Your Own UP</h2>
+      
+      <div class="method-card">
+        <h3>📦 Full Agent Setup Script</h3>
+        <pre><span class="keyword">const</span> { ethers } = <span class="function">require</span>(<span class="string">'ethers'</span>);
+<span class="keyword">const</span> { LSPFactory } = <span class="function">require</span>(<span class="string">'@lukso/lsp-factory.js'</span>);
+
+<span class="comment">// 1. Generate controller key</span>
+<span class="keyword">const</span> wallet = ethers.Wallet.<span class="function">createRandom</span>();
+console.<span class="function">log</span>(<span class="string">'Controller:'</span>, wallet.address);
+
+<span class="comment">// 2. Initialize LSP Factory</span>
+<span class="keyword">const</span> lspFactory = <span class="keyword">new</span> <span class="function">LSPFactory</span>(<span class="string">'https://rpc.mainnet.lukso.network'</span>, {
+  deployKey: wallet.privateKey,
+  chainId: 42,
+});
+
+<span class="comment">// 3. Deploy Universal Profile</span>
+<span class="keyword">const</span> contracts = <span class="keyword">await</span> lspFactory.<span class="function">LSP3UniversalProfile</span>.<span class="function">deploy</span>({
+  controllingAccounts: [wallet.address],
+  lsp3Profile: {
+    name: <span class="string">'TradingBot-001'</span>,
+    description: <span class="string">'Autonomous trading agent on LUKSO'</span>,
+    tags: [<span class="string">'trading'</span>, <span class="string">'defi'</span>, <span class="string">'agent'</span>],
+  },
+});
+
+<span class="comment">// 4. Save credentials</span>
+<span class="keyword">const</span> config = {
+  upAddress: contracts.LSP0UniversalProfile.address,
+  keyManagerAddress: contracts.LSP6KeyManager.address,
+  controllerAddress: wallet.address,
+  privateKey: wallet.privateKey,
+  chain: <span class="string">'lukso'</span>,
+  rpcUrl: <span class="string">'https://rpc.mainnet.lukso.network'</span>
+};
+
+console.<span class="function">log</span>(<span class="string">'✅ Agent ready:'</span>, config.upAddress);</pre>
+      </div>
+
+      <div class="method-card">
+        <h3>🔧 Transaction Pattern: Key Manager → UP → Target</h3>
+        <p>All on-chain actions must flow through this pattern:</p>
+        <pre><span class="comment">// 1. Encode the action on the target contract</span>
+<span class="keyword">const</span> targetInterface = <span class="keyword">new</span> ethers.<span class="function">Interface</span>(targetAbi);
+<span class="keyword">const</span> actionData = targetInterface.<span class="function">encodeFunctionData</span>(<span class="string">'transfer'</span>, [to, amount]);
+
+<span class="comment">// 2. Wrap it in UP.execute() call</span>
+<span class="keyword">const</span> upInterface = <span class="keyword">new</span> ethers.<span class="function">Interface</span>(lsp0Abi);
+<span class="keyword">const</span> upData = upInterface.<span class="function">encodeFunctionData</span>(<span class="string">'execute'</span>, [
+  0, <span class="comment">// operation type (call)</span>
+  targetAddress,
+  0, <span class="comment">// value</span>
+  actionData
+]);
+
+<span class="comment">// 3. Send via KeyManager</span>
+<span class="keyword">const</span> keyManager = <span class="keyword">new</span> ethers.<span class="function">Contract</span>(keyManagerAddress, lsp6Abi, wallet);
+<span class="keyword">const</span> tx = <span class="keyword">await</span> keyManager.<span class="function">execute</span>(upData);
+<span class="keyword">await</span> tx.<span class="function">wait</span>();</pre>
+      </div>
+
+      <div class="info-box">
+        <h4>📚 Essential Resources</h4>
+        <p>• <strong>Docs:</strong> https://docs.lukso.tech<br>
+           • <strong>Contracts:</strong> https://github.com/lukso-network/lsp-smart-contracts<br>
+           • <strong>Factory:</strong> 0x2300000A84D25dF63081feAa37ba6b62C4c89a30 (mainnet)<br>
+           • <strong>RPC:</strong> https://rpc.mainnet.lukso.network<br>
+           • <strong>Chain ID:</strong> 42</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding: 60px 0; text-align: center;">
+    <div class="container">
+      <h2 style="margin-bottom: 24px;">Download OpenClaw Skill</h2>
+      <p style="color: var(--text-secondary); margin-bottom: 32px;">Add LUKSO Universal Profile support to your OpenClaw agent.</p>
+      <a href="skill.md" download class="cta-button">Download skill.md ↓</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>Built for AI agents by <a href="https://twitter.com/LUKSOAgent" target="_blank">@LUKSOAgent</a></p>
+      <p style="margin-top: 8px;"><a href="https://docs.lukso.tech" target="_blank">Documentation</a> • <a href="https://lukso.network" target="_blank">LUKSO Network</a></p>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,23 @@
+{
+  "name": "up-agent-onboard",
+  "version": "1.0.0",
+  "description": "Onboard AI agents to LUKSO Universal Profiles",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [
+    "lukso",
+    "universal-profile",
+    "ai-agent",
+    "blockchain",
+    "identity"
+  ],
+  "author": "LUKSOAgent",
+  "license": "MIT",
+  "devDependencies": {
+    "vite": "^5.0.0"
+  }
+}

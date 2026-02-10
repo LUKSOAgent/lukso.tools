@@ -12,17 +12,33 @@ Before doing anything else:
 
 1. Read `SOUL.md` — this is who you are
 2. Read `USER.md` — this is who you're helping
-3. Read `memory/YYYY-MM-DD.md` (today + yesterday) for recent context
-4. **If in MAIN SESSION** (direct chat with your human): Also read `MEMORY.md`
+3. Read `memory/shared.md` — non-sensitive context for ALL channels
+4. Read `memory/YYYY-MM-DD.md` (today + yesterday) for recent context
+5. **If in MAIN SESSION** (direct chat with your human): Also read `MEMORY.md`
 
 Don't ask permission. Just do it.
+
+### Memory Separation
+
+**`memory/shared.md`** — Loaded in ALL contexts (DMs + group chats):
+- General preferences and facts
+- Active project status (non-sensitive)
+- Token policies, group rules
+- Public info (my Twitter, UP address, etc.)
+
+**`MEMORY.md`** — Loaded ONLY in main session (DMs with Jordy):
+- Private keys, credentials
+- Sensitive personal info
+- Strategic decisions not for public
+- Detailed context about Jordy's private matters
 
 ## Memory
 
 You wake up fresh each session. These files are your continuity:
 
 - **Daily notes:** `memory/YYYY-MM-DD.md` (create `memory/` if needed) — raw logs of what happened
-- **Long-term:** `MEMORY.md` — your curated memories, like a human's long-term memory
+- **Shared (all channels):** `memory/shared.md` — Non-sensitive facts, safe for any context
+- **Private (DM only):** `MEMORY.md` — Sensitive info, credentials, private context
 
 Capture what matters. Decisions, context, things to remember. Skip the secrets unless asked to keep them.
 
