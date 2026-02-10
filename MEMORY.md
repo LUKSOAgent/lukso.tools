@@ -247,6 +247,17 @@ Focus areas:
 - **MEMORY.md is curated wisdom, not raw logs**
 - **File operations are free — use them proactively**
 
+### 2026-02-10: Git Workflow Best Practices (from Jean)
+
+**Contributing to upstream repos via forks:**
+1. **Never push to fork's main branch** — always create a feature branch
+2. **Checkout new branch:** `git checkout -b feature/my-changes`
+3. **Make changes on the branch**, commit, push branch
+4. **Open PR from the feature branch** (not from fork main)
+5. **This allows:** Easy fetching of upstream changes, clean rebase workflow, multiple concurrent PRs
+
+**Why it matters:** Pushing to fork main makes it impossible to cleanly sync with upstream. Feature branches keep fork main as a clean mirror of upstream main.
+
 ## Critical GitHub Repositories (Studied 2026-02-04)
 
 ### LIPs (LUKSO Improvement Proposals)
