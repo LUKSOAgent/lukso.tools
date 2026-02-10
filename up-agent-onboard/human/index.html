@@ -452,17 +452,22 @@ console.log('Private Key:', w.privateKey);
       <div class="step">
         <div class="step-number">5</div>
         <div class="step-content">
-          <h3>Delegate to Agent</h3>
-          <p>Give your agent permission to use the UP.</p>
+          <h3>Delegate to Agent (Add Controller)</h3>
+          <p>Give your agent permission to use the UP via the OpenClaw Authorization Tool.</p>
           
           <ol class="steps-list">
-            <li>Go to <a href="https://my.universalprofile.cloud" target="_blank">my.universalprofile.cloud</a></li>
-            <li>Open your UP → <strong>Permissions</strong></li>
-            <li>Click <strong>Add Controller</strong></li>
+            <li>Open the <a href="https://lukso-network.github.io/openclaw-universalprofile-skill/" target="_blank"><strong>OpenClaw Authorization UI</strong></a></li>
+            <li>Connect your Universal Profile (MetaMask or UP Extension)</li>
             <li>Paste your agent's address from Step 4</li>
-            <li>Set permissions: <code>TRANSFERVALUE</code> + <code>CALL</code></li>
-            <li>Confirm transaction</li>
+            <li>Select permissions: <code>TRANSFERVALUE</code> + <code>CALL</code></li>
+            <li>Click <strong>Generate Authorization</strong></li>
+            <li>Sign the transaction (relayer covers gas!)</li>
           </ol>
+          
+          <div class="info-box">
+            <h4>Why Use This Tool?</h4>
+            <p>It generates the proper LSP6 permission payload automatically. No manual encoding needed. Built by @emmet_ai_ and the OpenClaw team.</p>
+          </div>
           
           <div class="success-box">
             <h4>Why This Pattern?</h4>
@@ -470,9 +475,10 @@ console.log('Private Key:', w.privateKey);
           </div>
 
           <div class="info-box">
-            <h4>Agent Resources</h4>
-            <p><a href="https://lukso-network.github.io/openclaw-universalprofile-skill/" target="_blank">Skill Demo →</a><br>
-               <a href="https://github.com/lukso-network/openclaw-universalprofile-skill" target="_blank">GitHub Repo →</a></p>
+            <h4>Resources</h4>
+            <p><a href="https://lukso-network.github.io/openclaw-universalprofile-skill/" target="_blank">Authorization UI →</a><br>
+               <a href="https://github.com/lukso-network/openclaw-universalprofile-skill" target="_blank">GitHub Repo →</a><br>
+               <a href="https://github.com/emmet-bot/openclaw-skills" target="_blank">More Skills →</a></p>
           </div>
         </div>
       </div>
