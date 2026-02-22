@@ -17,11 +17,28 @@ const path = require('path');
 const STATE_DIR = '/root/.openclaw/workspace/.twitter-state';
 const REPLIED_FILE = path.join(STATE_DIR, 'replied-threads.json');
 const RUN_COUNT_FILE = path.join(STATE_DIR, 'reply-hunter-run-count.json');
+const TOPIC_HISTORY_FILE = path.join(STATE_DIR, 'reply-hunter-topic-history.json');
 const DRY_RUN = process.argv.includes('--dry-run');
-const MAX_REPLIES_PER_RUN = 3;
+const MAX_REPLIES_PER_RUN = 2;
 const MIN_LIKES = 2;
 const MIN_REPLIES = 1;
 const OWN_USER_ID = '2018833059030700032';
+
+// LSP6-related categories — enforce cooldown so we don't post LSP6 every single run
+const LSP6_CATEGORIES = new Set(['ai_agent_keys', 'key_recovery', 'permission_delegation']);
+
+function loadTopicHistory() {
+  try {
+    return JSON.parse(fs.readFileSync(TOPIC_HISTORY_FILE, 'utf8'));
+  } catch {
+    return { recent: [] }; // last N pain categories used
+  }
+}
+
+function saveTopicHistory(history) {
+  fs.mkdirSync(STATE_DIR, { recursive: true });
+  fs.writeFileSync(TOPIC_HISTORY_FILE, JSON.stringify(history));
+}
 
 // === QUERY TIERS ===
 // HIGH: always included — rotated randomly each run for diversity
@@ -236,13 +253,37 @@ async function main() {
     return true;
   });
 
+  // Load topic history to apply cooldown
+  const topicHistory = loadTopicHistory();
+  const recentCategories = topicHistory.recent || [];
+  const lastRunWasLSP6 = recentCategories.slice(-2).some(c => LSP6_CATEGORIES.has(c));
+
   // Prefer candidates with a matched pain category
+  // If last run(s) were LSP6-heavy, penalise LSP6 candidates this run
   candidates.sort((a, b) => {
     const aHasPain = a.painCategory ? 1 : 0;
     const bHasPain = b.painCategory ? 1 : 0;
     if (bHasPain !== aHasPain) return bHasPain - aHasPain;
-    return b.score - a.score;
+    // Apply cooldown penalty to LSP6 if recently overused
+    let aScore = a.score;
+    let bScore = b.score;
+    if (lastRunWasLSP6) {
+      if (LSP6_CATEGORIES.has(a.painCategory)) aScore -= 100;
+      if (LSP6_CATEGORIES.has(b.painCategory)) bScore -= 100;
+    }
+    return bScore - aScore;
   });
+
+  // Enforce max 1 LSP6 reply per run regardless of score
+  let lsp6Count = 0;
+  candidates = candidates.filter(c => {
+    if (LSP6_CATEGORIES.has(c.painCategory)) {
+      if (lsp6Count >= 1) return false;
+      lsp6Count++;
+    }
+    return true;
+  });
+
   candidates = candidates.slice(0, MAX_REPLIES_PER_RUN);
 
   if (candidates.length === 0) {
@@ -278,6 +319,14 @@ async function main() {
   }));
 
   incrementRunCount(runCount);
+
+  // Save topic history for cooldown tracking
+  const usedCategories = candidates.map(c => c.painCategory).filter(Boolean);
+  if (usedCategories.length > 0) {
+    topicHistory.recent = [...recentCategories, ...usedCategories].slice(-8); // keep last 8
+    saveTopicHistory(topicHistory);
+    console.log(`[Reply Hunter v2] Topic history updated: [${topicHistory.recent.join(', ')}]`);
+  }
 
   if (DRY_RUN) {
     console.log('[Reply Hunter v2] Dry run complete - no replies posted.');
