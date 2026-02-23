@@ -1,5 +1,5 @@
 const { ethers } = require('ethers');
-const fs = require('fs');
+const { execSync } = require('child_process');
 
 /**
  * Follow a Universal Profile via LSP26 using Key Manager
@@ -8,17 +8,22 @@ const fs = require('fs');
  * 1. Encode follow(address) call to LSP26 contract
  * 2. Encode UP.execute(0, LSP26, 0, followCalldata) 
  * 3. Send via KeyManager.execute(payload)
- * 
- * Working example 2026-02-04:
- * - KeyManager: 0xAd5481E02f8cdAabD1d3F04b7953De0FDb53F048
- * - UP: 0x293E96ebbf264ed7715cff2b67850517De70232a
- * - LSP26: 0xf01103E5a9909Fc0DBe8166dA7085e0285daDDcA
- * - Controller: 0xE093A714960da1bF297522617BfC08132b62B86a
  */
 
+function getCredentials() {
+    try {
+        // Decrypt credentials using sops
+        const output = execSync('cd /root/.openclaw/workspace && sops --decrypt .credentials', { encoding: 'utf8' });
+        return output;
+    } catch (e) {
+        console.error('Failed to decrypt credentials:', e.message);
+        process.exit(1);
+    }
+}
+
 async function followUniversalProfile(targetUP, name = 'Unknown') {
-    // Load credentials
-    const creds = fs.readFileSync('.credentials', 'utf8');
+    // Load and decrypt credentials
+    const creds = getCredentials();
     const pk = creds.split('\n').find(l => l.startsWith('Private Key:')).split(': ')[1].trim();
     
     const provider = new ethers.JsonRpcProvider('https://rpc.mainnet.lukso.network');
@@ -46,7 +51,6 @@ async function followUniversalProfile(targetUP, name = 'Unknown') {
         const followCalldata = follower.interface.encodeFunctionData('follow', [targetAddress]);
         
         // Step 2: Encode UP.execute(0, lsp26, 0, followCalldata)
-        // operation 0 = CALL, value 0
         const payload = upContract.interface.encodeFunctionData('execute', [0, lsp26, 0, followCalldata]);
         
         // Step 3: Send via KeyManager
@@ -69,7 +73,7 @@ async function followUniversalProfile(targetUP, name = 'Unknown') {
 }
 
 // Export for use in other scripts
-module.exports = { followUniversalProfile };
+module.exports = { followUniversalProfile, getCredentials };
 
 // If run directly
 if (require.main === module) {

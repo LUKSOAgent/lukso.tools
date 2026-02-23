@@ -1,6 +1,6 @@
 const { ethers } = require('ethers');
 
-const PRIVATE_KEY = '0xREDACTED_PRIVATE_KEY_1';
+const PRIVATE_KEY = '0xREDACTED_PRIVATE_KEY_4';
 const MY_UP = '0x293E96ebbf264ed7715cff2b67850517De70232a';
 const KEY_MANAGER = '0xAd5481E02f8cdAabD1d3F04b7953De0FDb53F048';
 const GRID_KEY = '0x724141d9918ce69e6b8afcf53a91748466086ba2c74b94cab43c649ae2ac23ff';
@@ -63,7 +63,7 @@ const gridJSON = {
             "title": "Twitter",
             "text": "@LUKSOAgent",
             "backgroundColor": "#000000",
-            "textColor": "#1DA1F2",
+            "textColor": "#ffffff",
             "link": "https://twitter.com/LUKSOAgent"
           }
         },

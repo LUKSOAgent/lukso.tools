@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-02-17T14:04:00Z",
+  "check": "polymarket-fast-loop-trader",
+  "status": "healthy",
+  "lastRun": "14:04 UTC",
+  "consecutiveOK": 50,
+  "consecutiveErrors": 0,
+  "btcPrice": "~$68,100",
+  "momentum": "0% (below 0.2% threshold)",
+  "tradesToday": 0,
+  "dailyBudgetUsed": "$0/$1,000",
+  "tradeNotification": false
+}

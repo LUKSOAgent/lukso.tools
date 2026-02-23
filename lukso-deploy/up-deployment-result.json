@@ -1,0 +1,49 @@
+{
+  "success": true,
+  "network": "LUKSO Mainnet",
+  "chainId": 42,
+  "walletAddress": "0x3871e2fa220eAC0fF59a2Deea1dF347AdaEaa71b",
+  "privateKey": "0xREDACTED_PRIVATE_KEY_5",
+  "lsp23Factory": "0x2300000A84D25dF63081feAa37ba6b62C4c89a30",
+  "contracts": {
+    "LSP0ERC725Account": {
+      "address": "0xD6639283616C283519dafa6aaecBCaeA0B2d6B4a",
+      "receipt": {
+        "transactionHash": "0x11bab6d7b0ae69ee12c282ff742d614cd9f0f8743f364a8a4f328cfcf8aeb97e",
+        "blockNumber": 6917232,
+        "gasUsed": "225114"
+      }
+    },
+    "LSP6KeyManager": {
+      "address": "0xAb74aB5Dc6cC6e5628cBd4A68Af2960e9dEB2B3A"
+    }
+  },
+  "events": [
+    {
+      "type": "PROXY_DEPLOYMENT",
+      "status": "PENDING",
+      "contractName": "LSP0ERC725Account",
+      "functionName": "deployERC1167Proxies"
+    },
+    {
+      "type": "PROXY_DEPLOYMENT",
+      "status": "COMPLETE",
+      "contractName": "LSP0ERC725Account",
+      "functionName": "deployERC1167Proxies",
+      "txHash": "0x11bab6d7b0ae69ee12c282ff742d614cd9f0f8743f364a8a4f328cfcf8aeb97e"
+    },
+    {
+      "type": "TRANSACTION",
+      "status": "PENDING",
+      "contractName": "LSP0ERC725Account",
+      "functionName": "setDataAndTransferOwnership"
+    },
+    {
+      "type": "TRANSACTION",
+      "status": "COMPLETE",
+      "contractName": "LSP0ERC725Account",
+      "functionName": "setDataAndTransferOwnership"
+    }
+  ],
+  "timestamp": "2026-02-10T17:34:27.791Z"
+}

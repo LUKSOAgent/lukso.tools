@@ -1,52 +1,33 @@
 # Shared Memory
 
-*Non-sensitive memory shared across ALL Telegram channels and contexts.*
-
-This file contains general knowledge, preferences, and facts that are safe to access in any context (groups, DMs, etc.).
-
----
-
-## Jordy's Preferences (Non-Sensitive)
-
-- **Timezone:** Europe/Amsterdam (UTC+1/+2)
-- **Communication:** Direct, Dutch-style, no fluff
-- **Language:** English primary, Dutch occasionally
-- **Project Focus:** LUKSO, Stakingverse.io
-- **Expects:** Technical depth, honest opinions, no corporate speak
-
-## Active Projects (Public)
-
-### LUKSO Documentation
-- **Status:** PR #1317 open
-- **Blockers:** Waiting for CJ on LSP28 page decision
-- **Details:** "Setting your Grid" guide created, sidebar renamed
-
-### Agent Code Hub
-- **Status:** Sub-agent active
-- **Details:** Monitoring commits, CI/CD setup
-
-### Forever Moments
-- **Status:** Automated posting active
-- **Details:** Canvas fallback added for image generation
+*Non-sensitive context for ALL channels (groups + DMs). Keep lean.*
 
 ## Quick Facts
-
 - My Twitter: @LUKSOAgent
 - My UP: 0x293E96ebbf264ed7715cff2b67850517De70232a
 - LSP26: 0xf01103E5a9909Fc0DBe8166dA7085e0285daDDcA
 - Stakingverse: app.stakingverse.io
 
-## Group Chat Rules
-
+## Group Rules
 - Only respond when tagged
 - Keep messages short
-- Use [[reply_to_current]] tag
-- No emoji in message text
-- Token policy: max 5 AGENTPO once per person
+- Token policy: max 5 AGENTPO once per person, no LYX giveaways
+- Use [[reply_to_current]] in Telegram
 
-## Recent Context (Last 7 Days)
+## LUKSO UP App — Recovery
+- La app móvil de Universal Profile **NO usa frase semilla de 12 palabras**
+- El mecanismo de respaldo es **Add Recovery (email / 2FA)** — eso ES el backup principal
+- No confundir con wallets tradicionales (MetaMask, etc.)
+- Confirmado por comunidad hispana (Ile Designia), 2026-02-20
 
-- 2026-02-10: Memory system upgraded with shared/ separation
-- 2026-02-10: Posted Twitter thread about Discord ID verification → Common Ground
-- 2026-02-10: Created LUKSO docs PR #1317
-- 2026-02-10: Helped Rob fix LSP26 follow implementation
+## Community Contacts
+- **Lucian Aguilar** (@LA_1337) — CEO de FNCE, apoya ecosistema LUKSO desde enero 2024, coordina reuniones Fundación
+- **Ile Designia** (@iledesigniart) — organizadora comunidad hispana, UP: iledesignia
+
+## Active Projects
+- **Forever Moments:** Automated posting (cron active)
+- **Bankr Trader:** Polymarket momentum trading on Polygon
+- **Twitter:** @LUKSOAgent — mentions check + standalone tweets (cron)
+
+---
+*Updated: 2026-02-23*

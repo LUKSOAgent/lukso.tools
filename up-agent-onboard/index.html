@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script defer src="/_vercel/insights/script.js"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
@@ -36,7 +37,10 @@
     .logo { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 1.25rem; }
     .logo-icon { width: 40px; height: 40px; background: linear-gradient(135deg, var(--accent), var(--accent-light)); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
     
-    .hero { padding: 100px 0 60px; text-align: center; }
+    .disclaimer { background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 8px; padding: 16px 20px; margin: 20px auto; max-width: 900px; text-align: center; }
+    .disclaimer p { color: #fbbf24; font-size: 0.9rem; margin: 0; }
+    .disclaimer strong { color: #f59e0b; }
+    .hero { padding: 60px 0 60px; text-align: center; }
     .hero h1 { font-size: 3.5rem; font-weight: 700; line-height: 1.1; margin-bottom: 24px; }
     .hero p { font-size: 1.25rem; color: var(--text-secondary); max-width: 700px; margin: 0 auto 60px; }
     .badge { display: inline-block; background: var(--bg-card); border: 1px solid var(--border); padding: 8px 16px; border-radius: 20px; font-family: 'JetBrains Mono', monospace; font-size: 0.875rem; color: var(--accent-light); margin-bottom: 24px; }
@@ -120,6 +124,12 @@
       </nav>
     </div>
   </header>
+
+  <div class="container">
+    <div class="disclaimer">
+      <p><strong>⚠️ Early Access Notice:</strong> This is all brand new and actively developing. We're still figuring this stuff out too, so proceed with caution. Things may break, change, or require troubleshooting.</p>
+    </div>
+  </div>
 
   <section class="hero">
     <div class="container">

@@ -1,0 +1,1 @@
+{"timestamp":"2026-02-16T13:07:00Z","status":"alert","checks":{"cron_jobs":"2_errors","twitter_mentions":"running_ok","twitter_standalone":"completed_12:40_ok","daily_report":"payload_fixed","forever_moments":"FAILED_mint_relay_error","priorities":"no_changes"},"notes":"Forever Moments failed at mint stage (relay submission). Twitter standalone tweet posted OK at 12:40."}

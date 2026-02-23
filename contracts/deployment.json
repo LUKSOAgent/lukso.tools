@@ -1,0 +1,8 @@
+{
+  "contractAddress": "0x64B3AeCE25B73ecF3b9d53dA84948a9dE987F4F6",
+  "deployTxHash": "0x3ada08903a0dfc9d648a5fb9258a5309ee0fbf4be86c1551de02ca19ea60ad8c",
+  "deployer": "0xA1D8703e52d8992bFeFbd276Bf0957c125583Fc0",
+  "solcVersion": "0.8.34+commit.80d5c536.Emscripten.clang",
+  "network": "LUKSO mainnet (42)",
+  "deployedAt": "2026-02-21T19:03:49.435Z"
+}

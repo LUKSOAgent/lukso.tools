@@ -143,22 +143,28 @@ export const CHAINS = {
     name: 'LUKSO',
     rpcUrl: 'https://42.rpc.thirdweb.com',
     explorer: 'https://explorer.lukso.network',
-    currency: {
-      name: 'LYX',
-      symbol: 'LYX',
-      decimals: 18,
-    },
+    currency: { name: 'LYX', symbol: 'LYX', decimals: 18 },
   },
   'lukso-testnet': {
     chainId: 4201,
     name: 'LUKSO Testnet',
     rpcUrl: 'https://rpc.testnet.lukso.network',
     explorer: 'https://explorer.testnet.lukso.network',
-    currency: {
-      name: 'LYXt',
-      symbol: 'LYXt',
-      decimals: 18,
-    },
+    currency: { name: 'LYXt', symbol: 'LYXt', decimals: 18 },
+  },
+  base: {
+    chainId: 8453,
+    name: 'Base',
+    rpcUrl: 'https://mainnet.base.org',
+    explorer: 'https://basescan.org',
+    currency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
+  },
+  ethereum: {
+    chainId: 1,
+    name: 'Ethereum',
+    rpcUrl: 'https://eth.llamarpc.com',
+    explorer: 'https://etherscan.io',
+    currency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
   },
 };
 
@@ -168,6 +174,13 @@ export const CHAINS = {
 export const FACTORY_ADDRESSES = {
   LSP16_UNIVERSAL_FACTORY: '0x1600016e23e25D20CA8759338BfB8A8d11563C4e',
   LSP23_LINKED_CONTRACTS_FACTORY: '0x2300000A84D25dF63081feAa37ba6b62C4c89a30',
+};
+
+/**
+ * Singleton contract addresses (same on mainnet & testnet)
+ */
+export const SINGLETON_ADDRESSES = {
+  LSP26_FOLLOWER_SYSTEM: '0xf01103E5a9909Fc0DBe8166dA7085e0285daDDcA',
 };
 
 /**
@@ -231,6 +244,15 @@ export const ABIS = {
     'function revokeOperator(address operator, bytes32 tokenId, bool notify, bytes operatorNotificationData)',
     'function isOperatorFor(address operator, bytes32 tokenId) view returns (bool)',
   ],
+
+  // LSP26 (Follower System)
+  LSP26: [
+    'function follow(address addr)',
+    'function unfollow(address addr)',
+    'function isFollowing(address follower, address addr) view returns (bool)',
+    'function followerCount(address addr) view returns (uint256)',
+    'function followingCount(address addr) view returns (uint256)',
+  ],
 };
 
 /**
@@ -245,6 +267,7 @@ export const INTERFACE_IDS = {
   LSP7: '0xc52d6008', // Digital Asset
   LSP8: '0x3a271706', // Identifiable Digital Asset
   LSP9: '0x28af17e6', // Vault
+  LSP26: '0x2b299cea', // Follower System
 };
 
 /**
@@ -370,27 +393,23 @@ export default {
 };
 
 /**
+ * Resolve explorer base URL from chain ID
+ */
+function getExplorerBase(chainId = 42) {
+  const map = { 42: 'https://explorer.lukso.network', 4201: 'https://explorer.testnet.lukso.network', 8453: 'https://basescan.org', 1: 'https://etherscan.io' };
+  return map[chainId] || map[42];
+}
+
+/**
  * Get explorer URL for a transaction
- * @param {string} txHash - Transaction hash
- * @param {number} chainId - Chain ID (42 for mainnet, 4201 for testnet)
- * @returns {string} Explorer URL
  */
 export function getExplorerUrl(txHash, chainId = 42) {
-  const baseUrl = chainId === 4201 
-    ? 'https://explorer.testnet.lukso.network'
-    : 'https://explorer.lukso.network';
-  return `${baseUrl}/tx/${txHash}`;
+  return `${getExplorerBase(chainId)}/tx/${txHash}`;
 }
 
 /**
  * Get explorer URL for an address
- * @param {string} address - Address
- * @param {number} chainId - Chain ID (42 for mainnet, 4201 for testnet)
- * @returns {string} Explorer URL
  */
 export function getAddressExplorerUrl(address, chainId = 42) {
-  const baseUrl = chainId === 4201 
-    ? 'https://explorer.testnet.lukso.network'
-    : 'https://explorer.lukso.network';
-  return `${baseUrl}/address/${address}`;
+  return `${getExplorerBase(chainId)}/address/${address}`;
 }

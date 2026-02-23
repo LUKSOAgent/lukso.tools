@@ -1,0 +1,17 @@
+{
+  "entry_threshold": 0.01,
+  "min_momentum_pct": 0.12,
+  "max_position": 10.0,
+  "daily_budget": 10000.0,
+  "daily_loss_limit": 50.0,
+  "lookback_minutes": 2,
+  "min_time_remaining": 20,
+  "asset": "BTC",
+  "window": "5m",
+  "signal_source": "chainlink",
+  "volume_confidence": false,
+  "max_trades_per_hour": 6,
+  "max_consecutive_losses": 3,
+  "min_confidence": 0.65,
+  "volatility_threshold": 0.03
+}

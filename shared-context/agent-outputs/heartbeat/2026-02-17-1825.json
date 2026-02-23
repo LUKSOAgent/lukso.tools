@@ -1,0 +1,29 @@
+{
+  "timestamp": "2026-02-17T18:25:00Z",
+  "agent": "main",
+  "checks": {
+    "polymarket_trader": {
+      "status": "running",
+      "pid": 1016658,
+      "last_trade": "2026-02-17T17:55:20Z",
+      "trade_id": "6c18e242-9da5-42f2-b99e-07c21a47fcde",
+      "anomaly_detected": "0 shares / $0 cost - monitoring next trades",
+      "config": {
+        "min_momentum_pct": 0.15,
+        "entry_threshold": 0.01,
+        "lookback_minutes": 2
+      }
+    },
+    "notifications": {
+      "trade": false,
+      "redeem": false
+    },
+    "cron_jobs": {
+      "polymarket_auto_redeem": {
+        "schedule": "0 * * * *",
+        "next_run": "19:00 UTC"
+      }
+    }
+  },
+  "notes": "Bot running normally. Monitoring for trade anomalies."
+}

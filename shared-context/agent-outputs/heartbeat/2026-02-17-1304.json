@@ -1,0 +1,25 @@
+{
+  "timestamp": "2026-02-17T13:04:00Z",
+  "status": "healthy",
+  "checks": {
+    "polymarket_trader": {
+      "status": "operational",
+      "schedule": "every minute (* * * * *)",
+      "last_run": "13:04 UTC",
+      "consecutive_errors": 0,
+      "total_runs_today": 50,
+      "trades_executed": 0,
+      "daily_budget": "$0 / $1,000",
+      "btc_price": "$67,995.15",
+      "momentum": "+0.065%",
+      "signal_source": "chainlink_polygon",
+      "history_entries": 7
+    }
+  },
+  "notes": [
+    "Cron job running every minute (updated from 2 min)",
+    "BTC flat - no momentum signals above 0.2% threshold",
+    "Chainlink history has 7 entries - updates only when price changes",
+    "No trade notification file - no trades executed"
+  ]
+}

@@ -1,0 +1,1 @@
+{"timestamp":"2026-02-16T08:33:00Z","status":"alert","checks":{"cron_jobs":"1_error","twitter_mentions":"running_ok","twitter_standalone":"running_ok","daily_report":"FAILED_message_too_long","forever_moments":"running_ok","priorities":"no_changes"},"notes":"Daily community report failed - Telegram message length exceeded. Needs fix before next run (tomorrow 08:00 CET)."}

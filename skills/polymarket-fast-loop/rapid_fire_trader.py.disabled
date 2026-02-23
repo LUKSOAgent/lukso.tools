@@ -1,0 +1,779 @@
+#!/usr/bin/env python3
+"""
+Rapid-fire Polymarket trader - runs continuously checking every 20-30 seconds.
+ONLY trades active markets that are already imported in Simmer.
+NEVER trades future markets (tomorrow/next day).
+"""
+
+import os
+import sys
+import time
+import random
+import json
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from fastloop_trader import (
+    get_api_key, get_private_key, execute_trade_sdk, 
+    get_momentum, ASSET, redeem_positions, simmer_request, get_positions,
+    get_chainlink_price
+)
+from datetime import datetime, timezone, timedelta
+from collections import deque
+
+# ============================================================================
+# Winning Strategy: Multi-Factor Signal Generation
+# ============================================================================
+
+class SignalGenerator:
+    """
+    Winning strategy using:
+    1. Chainlink price (primary, same as Polymarket oracle)
+    2. ATR volatility filter (only trade when vol is sufficient)
+    3. Multi-timeframe trend confirmation
+    4. Volume/momentum confirmation
+    """
+    
+    def __init__(self):
+        self.price_history = deque(maxlen=200)  # 200 price points
+        self.last_signal_time = 0
+        self.signal_cooldown = 45  # seconds between signals
+        self._load_from_chainlink_history()  # Load existing price data
+    
+    def _load_from_chainlink_history(self):
+        """Load price history from existing chainlink_history file."""
+        from pathlib import Path
+        import json
+        
+        history_file = Path(__file__).parent / f"chainlink_history_{ASSET.lower()}.json"
+        if history_file.exists():
+            try:
+                with open(history_file) as f:
+                    history = json.load(f)
+                
+                # Convert to our format
+                for entry in history[-100:]:  # Last 100 entries
+                    self.price_history.append({
+                        'price': entry['price'],
+                        'timestamp': entry.get('wall_ts', entry.get('timestamp', 0))
+                    })
+                print(f"📊 Loaded {len(self.price_history)} price points from history")
+            except Exception as e:
+                print(f"⚠️  Could not load price history: {e}")
+        
+    def update_price(self, price):
+        """Record new price with timestamp."""
+        self.price_history.append({
+            'price': price,
+            'timestamp': time.time()
+        })
+    
+    def calculate_atr(self, period=10):
+        """Calculate Average True Range for volatility."""
+        if len(self.price_history) < period + 1:
+            return 0
+        
+        prices = [p['price'] for p in list(self.price_history)[-period-1:]]
+        changes = [abs(prices[i] - prices[i-1]) for i in range(1, len(prices))]
+        return sum(changes) / len(changes)
+    
+    def get_momentum_multi_timeframe(self):
+        """Get momentum across multiple timeframes."""
+        if len(self.price_history) < 5:
+            return None
+        
+        now = time.time()
+        
+        # Short term: last 2 minutes
+        short_prices = [p['price'] for p in self.price_history if now - p['timestamp'] <= 120]
+        # Medium term: last 5 minutes  
+        medium_prices = [p['price'] for p in self.price_history if now - p['timestamp'] <= 300]
+        # Long term: last 10 minutes
+        long_prices = [p['price'] for p in self.price_history if now - p['timestamp'] <= 600]
+        
+        if len(short_prices) < 2 or len(medium_prices) < 2 or len(long_prices) < 2:
+            return None
+        
+        short_mom = ((short_prices[-1] - short_prices[0]) / short_prices[0]) * 100
+        medium_mom = ((medium_prices[-1] - medium_prices[0]) / medium_prices[0]) * 100
+        long_mom = ((long_prices[-1] - long_prices[0]) / long_prices[0]) * 100
+        
+        return {
+            'short': short_mom,
+            'medium': medium_mom,
+            'long': long_mom,
+            'price_now': short_prices[-1]
+        }
+    
+    def generate_signal(self, min_confidence=0.50):
+        """
+        Generate trading signal using multi-factor analysis.
+        
+        Returns: {
+            'signal': 'UP', 'DOWN', or None,
+            'confidence': 0.0-1.0,
+            'side': 'yes' or 'no',
+            'reason': explanation,
+            'price': current price
+        }
+        """
+        result = {'signal': None, 'confidence': 0, 'side': None, 'reason': '', 'price': 0}
+        
+        # Cooldown check
+        if time.time() - self.last_signal_time < self.signal_cooldown:
+            result['reason'] = 'Signal cooldown active'
+            return result
+        
+        # Need enough price history (5 points = ~2-3 minutes of data)
+        if len(self.price_history) < 5:
+            result['reason'] = f'Insufficient price history ({len(self.price_history)} points)'
+            return result
+        
+        # Get current price
+        price_now = self.price_history[-1]['price']
+        result['price'] = price_now
+        
+        # Calculate volatility (ATR)
+        atr = self.calculate_atr(10)
+        if price_now > 0:
+            atr_pct = (atr / price_now) * 100
+        else:
+            atr_pct = 0
+        
+        # VOLATILITY FILTER: Skip low volatility periods
+        if atr_pct < 0.03:  # Less than 0.03% ATR
+            result['reason'] = f'Volatility too low (ATR: {atr_pct:.3f}%)'
+            return result
+        
+        # Get multi-timeframe momentum
+        mom = self.get_momentum_multi_timeframe()
+        if not mom:
+            result['reason'] = 'Could not calculate momentum'
+            return result
+        
+        short_mom = mom['short']
+        medium_mom = mom['medium']
+        long_mom = mom['long']
+        
+        min_momentum = CONFIG.get('min_momentum_pct', 0.15)
+        
+        # SIGNAL LOGIC: All timeframes must agree
+        up_score = 0.0
+        down_score = 0.0
+        reasons = []
+        
+        # Short term (2 min) - weight: 30%
+        if short_mom > min_momentum:
+            up_score += 0.30
+            reasons.append(f'Short UP {short_mom:+.2f}%')
+        elif short_mom < -min_momentum:
+            down_score += 0.30
+            reasons.append(f'Short DOWN {short_mom:+.2f}%')
+        
+        # Medium term (5 min) - weight: 35%
+        if medium_mom > min_momentum:
+            up_score += 0.35
+            reasons.append(f'Medium UP {medium_mom:+.2f}%')
+        elif medium_mom < -min_momentum:
+            down_score += 0.35
+            reasons.append(f'Medium DOWN {medium_mom:+.2f}%')
+        
+        # Long term (10 min) - weight: 35%
+        if long_mom > min_momentum:
+            up_score += 0.35
+            reasons.append(f'Long UP {long_mom:+.2f}%')
+        elif long_mom < -min_momentum:
+            down_score += 0.35
+            reasons.append(f'Long DOWN {long_mom:+.2f}%')
+        
+        # Determine signal
+        if up_score > down_score and up_score >= 0.65:  # At least 2 of 3 timeframes
+            signal = 'UP'
+            confidence = up_score
+        elif down_score > up_score and down_score >= 0.65:
+            signal = 'DOWN'
+            confidence = down_score
+        else:
+            result['reason'] = f'No consensus (UP: {up_score:.2f}, DOWN: {down_score:.2f}) - {", ".join(reasons)}'
+            return result
+        
+        # Check minimum confidence
+        if confidence < min_confidence:
+            result['reason'] = f'Confidence {confidence:.2f} below threshold {min_confidence}'
+            return result
+        
+        # Boost confidence in high volatility (more opportunity)
+        if atr_pct > 0.10:  # High volatility regime
+            confidence = min(confidence * 1.1, 0.80)
+        
+        # Set result
+        result['signal'] = signal
+        result['side'] = 'yes' if signal == 'UP' else 'no'
+        result['confidence'] = confidence
+        result['reason'] = f'{signal} confirmed: {", ".join(reasons)} (ATR: {atr_pct:.3f}%)'
+        result['metadata'] = {
+            'short_momentum': short_mom,
+            'medium_momentum': medium_mom,
+            'long_momentum': long_mom,
+            'atr_pct': atr_pct,
+            'volatility_regime': 'HIGH' if atr_pct > 0.10 else 'NORMAL'
+        }
+        
+        self.last_signal_time = time.time()
+        return result
+
+
+# ============================================================================
+# Risk Manager
+# ============================================================================
+
+class RiskManager:
+    """Risk management with circuit breakers."""
+    
+    def __init__(self):
+        self.state_file = os.path.join(os.path.dirname(__file__), '.risk_state.json')
+        self.daily_pnl = 0.0
+        self.trades_today = 0
+        self.hourly_trades = 0
+        self.hour_start = datetime.now(timezone.utc).hour
+        self.consecutive_losses = 0
+        self.last_trade_time = 0
+        self.load_state()
+    
+    def load_state(self):
+        """Load persisted state."""
+        try:
+            with open(self.state_file, 'r') as f:
+                state = json.load(f)
+                today = datetime.now(timezone.utc).strftime('%Y-%m-%d')
+                if state.get('date') == today:
+                    self.daily_pnl = state.get('daily_pnl', 0)
+                    self.trades_today = state.get('trades_today', 0)
+                    self.consecutive_losses = state.get('consecutive_losses', 0)
+        except:
+            pass
+    
+    def save_state(self):
+        """Persist state."""
+        state = {
+            'date': datetime.now(timezone.utc).strftime('%Y-%m-%d'),
+            'daily_pnl': self.daily_pnl,
+            'trades_today': self.trades_today,
+            'consecutive_losses': self.consecutive_losses,
+            'last_updated': time.time()
+        }
+        try:
+            with open(self.state_file, 'w') as f:
+                json.dump(state, f)
+        except:
+            pass
+    
+    def can_trade(self):
+        """Check if trading is allowed."""
+        daily_limit = CONFIG.get('daily_loss_limit', 50)
+        max_hourly = CONFIG.get('max_trades_per_hour', 6)
+        max_consecutive = CONFIG.get('max_consecutive_losses', 3)
+        
+        if self.daily_pnl <= -daily_limit:
+            return False, f"Daily loss limit: ${self.daily_pnl:.2f}"
+        
+        current_hour = datetime.now(timezone.utc).hour
+        if current_hour != self.hour_start:
+            self.hour_start = current_hour
+            self.hourly_trades = 0
+        
+        if self.hourly_trades >= max_hourly:
+            return False, f"Hourly limit: {self.hourly_trades} trades"
+        
+        if self.consecutive_losses >= max_consecutive:
+            return False, f"Circuit breaker: {self.consecutive_losses} losses"
+        
+        return True, "OK"
+    
+    def record_trade(self, pnl=0):
+        """Record trade outcome."""
+        self.trades_today += 1
+        self.hourly_trades += 1
+        self.daily_pnl += pnl
+        if pnl < 0:
+            self.consecutive_losses += 1
+        else:
+            self.consecutive_losses = 0
+        self.save_state()
+
+
+# Global instances
+signal_gen = SignalGenerator()
+risk_mgr = RiskManager()
+
+# Load config for verification
+def load_config():
+    """Load trading configuration from config.json."""
+    config_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'config.json')
+    defaults = {
+        "entry_threshold": 0.01,
+        "min_momentum_pct": 0.15,
+        "max_position": 10.0,
+        "daily_budget": 10000.0,
+        "lookback_minutes": 2,
+        "min_time_remaining": 20,
+        "asset": "BTC",
+        "window": "5m",
+        "signal_source": "chainlink",
+        "volume_confidence": False
+    }
+    try:
+        with open(config_path, 'r') as f:
+            config = json.load(f)
+            # Merge with defaults
+            for key, val in defaults.items():
+                if key not in config:
+                    config[key] = val
+            return config
+    except (FileNotFoundError, json.JSONDecodeError) as e:
+        print(f"⚠️  Could not load config.json: {e}, using defaults")
+        return defaults
+
+CONFIG = load_config()
+
+def verify_market_data(market, momentum):
+    """Verify all data points before trading. Returns (ok, reason)."""
+    if not market:
+        return False, "No market data"
+    if not momentum:
+        return False, "No momentum data"
+    if 'price_now' not in momentum or momentum['price_now'] <= 0:
+        return False, "Invalid price data"
+    if 'momentum_pct' not in momentum:
+        return False, "Invalid momentum calculation"
+    
+    # Verify market timing
+    now = datetime.now(timezone.utc)
+    try:
+        resolves_at = datetime.fromisoformat(market.get('resolves_at', '').replace('Z', '+00:00'))
+        remaining = (resolves_at - now).total_seconds()
+        if remaining <= 0:
+            return False, f"Market already ended ({remaining:.0f}s ago)"
+        if remaining < CONFIG.get('min_time_remaining', 20):
+            return False, f"Too little time remaining ({remaining:.0f}s < {CONFIG.get('min_time_remaining', 20)}s)"
+    except:
+        return False, "Could not parse market end time"
+    
+    return True, "OK"
+
+def verify_momentum_quality(momentum):
+    """Verify momentum signal quality. Returns (ok, confidence_score)."""
+    min_momentum = CONFIG.get('min_momentum_pct', 0.15)
+    momentum_pct = abs(momentum.get('momentum_pct', 0))
+    
+    if momentum_pct < min_momentum:
+        return False, 0.0, f"Momentum {momentum_pct:.3f}% < threshold {min_momentum}%"
+    
+    # Calculate confidence based on momentum strength
+    # Higher momentum = higher confidence (but cap at 0.8)
+    confidence = min(0.5 + (momentum_pct / 1.0) * 0.3, 0.8)
+    
+    # Boost confidence if we have volume data
+    if momentum.get('volume_ratio', 1.0) > 1.5:
+        confidence = min(confidence + 0.05, 0.8)
+    
+    return True, confidence, f"Momentum: {momentum.get('momentum_pct', 0):+.3f}%, Confidence: {confidence:.2f}"
+
+def get_predictive_signal(asset="BTC"):
+    """Get PREDICTIVE trading signal using multi-timeframe trend analysis.
+    
+    Instead of just looking backward (price X min ago vs now),
+    we analyze the trend direction to predict where price is heading.
+    
+    Returns: {
+        'signal': 'up', 'down', or 'neutral',
+        'confidence': 0.0-1.0,
+        'short_term': short momentum %,
+        'long_term': long momentum %,
+        'price_now': current price,
+        'reason': explanation
+    }
+    """
+    # Get short-term momentum (2 min) - immediate direction
+    short_lookback = CONFIG.get('lookback_minutes', 2)
+    short_momentum = get_momentum(asset, CONFIG.get('signal_source', 'chainlink'), short_lookback)
+    
+    # Get long-term trend (10 min) - overall direction  
+    long_lookback = CONFIG.get('trend_lookback_minutes', 10)
+    long_momentum = get_momentum(asset, CONFIG.get('signal_source', 'chainlink'), long_lookback)
+    
+    if not short_momentum or not long_momentum:
+        return {'signal': 'neutral', 'confidence': 0, 'reason': 'No momentum data'}
+    
+    short_pct = short_momentum.get('momentum_pct', 0)
+    long_pct = long_momentum.get('momentum_pct', 0)
+    price_now = short_momentum.get('price_now', 0)
+    
+    min_threshold = CONFIG.get('min_momentum_pct', 0.15)
+    
+    # PREDICTIVE LOGIC:
+    # Only trade when short-term momentum CONFIRMS long-term trend
+    # This predicts continuation rather than reversal
+    
+    # Both up and short > long (accelerating up) -> BUY
+    if long_pct > min_threshold and short_pct > min_threshold and short_pct >= long_pct * 0.5:
+        confidence = min(0.5 + (short_pct + long_pct) / 2, 0.85)
+        return {
+            'signal': 'up',
+            'confidence': confidence,
+            'short_term': short_pct,
+            'long_term': long_pct,
+            'price_now': price_now,
+            'reason': f'BOTH UP: Long {long_pct:+.2f}% + Short {short_pct:+.2f}% (predicting continuation)'
+        }
+    
+    # Both down and short < long (accelerating down) -> SELL  
+    if long_pct < -min_threshold and short_pct < -min_threshold and short_pct <= long_pct * 0.5:
+        confidence = min(0.5 + (abs(short_pct) + abs(long_pct)) / 2, 0.85)
+        return {
+            'signal': 'down',
+            'confidence': confidence,
+            'short_term': short_pct,
+            'long_term': long_pct,
+            'price_now': price_now,
+            'reason': f'BOTH DOWN: Long {long_pct:+.2f}% + Short {short_pct:+.2f}% (predicting continuation)'
+        }
+    
+    # Conflicting signals - don't trade
+    if abs(short_pct) > min_threshold:
+        return {
+            'signal': 'neutral',
+            'confidence': 0,
+            'short_term': short_pct,
+            'long_term': long_pct,
+            'price_now': price_now,
+            'reason': f'CONFLICT: Long {long_pct:+.2f}% vs Short {short_pct:+.2f}% (avoiding false signal)'
+        }
+    
+    return {
+        'signal': 'neutral',
+        'confidence': 0,
+        'short_term': short_pct,
+        'long_term': long_pct,
+        'price_now': price_now,
+        'reason': f'WEAK: Long {long_pct:+.2f}%, Short {short_pct:+.2f}% (below threshold)'
+    }
+
+def get_active_simmer_markets(api_key, max_minutes=60):
+    """Get ALL active 5-minute BTC markets from Simmer."""
+    result = simmer_request('/api/sdk/markets?limit=100', api_key=api_key)
+    if not result:
+        return []
+    
+    markets = result.get('markets', [])
+    active = []
+    now = datetime.now(timezone.utc)
+    
+    for m in markets:
+        q = m.get('question', '')
+        # Only BTC fast markets
+        if 'Bitcoin' not in q or 'up or down' not in q.lower():
+            continue
+        
+        try:
+            # Parse resolves_at
+            resolves_at = datetime.fromisoformat(m.get('resolves_at', '').replace('Z', '+00:00'))
+            remaining = (resolves_at - now).total_seconds()
+            
+            # Market must be active (not ended)
+            is_active = remaining > 0
+            if not is_active:
+                continue
+            
+            # Parse time range from question to determine duration and start time
+            import re
+            match = re.search(r'(\d{1,2}):(\d{2})(AM|PM)-(\d{1,2}):(\d{2})(AM|PM)', q)
+            if not match:
+                continue
+            
+            h1, m1, ampm1, h2, m2, ampm2 = match.groups()
+            h1, m1, h2, m2 = int(h1), int(m1), int(h2), int(m2)
+            
+            # Convert to 24h
+            if ampm1 == 'PM' and h1 != 12: h1 += 12
+            if ampm1 == 'AM' and h1 == 12: h1 = 0
+            if ampm2 == 'PM' and h2 != 12: h2 += 12
+            if ampm2 == 'AM' and h2 == 12: h2 = 0
+            
+            # Calculate duration in minutes
+            start_min = h1 * 60 + m1
+            end_min = h2 * 60 + m2
+            duration_min = end_min - start_min
+            if duration_min < 0:  # Crosses midnight
+                duration_min += 24 * 60
+            
+            # Convert to seconds
+            duration = duration_min * 60
+            
+            # Calculate start time (resolves_at - duration)
+            created_at = resolves_at - __import__('datetime').timedelta(seconds=duration)
+            time_until_start = (created_at - now).total_seconds()
+            
+            # STRICT 5-minute filter (300 seconds ± 10 seconds tolerance)
+            is_5min_window = 290 <= duration <= 310
+            
+            # ONLY trade markets that have already started (time_until_start <= 0)
+            # This ensures we trade real-time momentum, not predictions for future markets
+            if time_until_start > 0:
+                continue  # Market hasn't started yet, skip it
+            
+            # Skip tomorrow's markets
+            from datetime import date, timedelta
+            today = date.today()
+            tomorrow = today + timedelta(days=1)
+            tomorrow_str = tomorrow.strftime("%B %d")
+            tomorrow_str_short = tomorrow.strftime("%b %d")
+            if tomorrow_str in q or tomorrow_str_short in q:
+                continue
+            
+            if is_5min_window:
+                active.append((m, remaining, time_until_start))
+        except Exception as e:
+            pass
+    
+    # Sort by soonest to end
+    active.sort(key=lambda x: x[1])
+    return active
+
+def rapid_fire_loop():
+    """Run continuous rapid-fire trading loop."""
+    print("⚡ Rapid-Fire Polymarket Trader")
+    print("=" * 50)
+    print("Trading ALL active 5-minute BTC markets")
+    print("NO future markets (tomorrow/next day)")
+    print("Press Ctrl+C to stop\n")
+    
+    api_key = get_api_key()
+    private_key = get_private_key()
+    
+    cycle_count = 0
+    trades_today = 0
+    
+    while True:
+        cycle_count += 1
+        now = datetime.now(timezone.utc)
+        
+        print(f"\n{'='*50}")
+        print(f"Cycle #{cycle_count} - {now.strftime('%H:%M:%S UTC')}")
+        print('='*50)
+        
+        # Auto-redeem first
+        try:
+            redeemed = redeem_positions(api_key, private_key=private_key, quiet=True)
+            if redeemed:
+                print(f"✅ Redeemed {len(redeemed)} position(s)")
+        except Exception as e:
+            pass  # Silent fail for redeem
+        
+        # Get current positions to check which markets we already traded
+        try:
+            current_positions = get_positions(api_key)
+            position_markets = {p.get('market_id'): p for p in current_positions}
+        except:
+            position_markets = {}
+        
+        # Get active markets from Simmer (already imported)
+        try:
+            markets = get_active_simmer_markets(api_key, max_minutes=10)
+            
+            if not markets:
+                print("No active markets (check again in 20-30s)")
+                time.sleep(random.uniform(20, 30))
+                continue
+            
+            # Filter out markets where we already have positions
+            tradable_markets = []
+            for m, remaining, time_until_start in markets:
+                market_id = m.get('id')
+                if market_id in position_markets:
+                    pos = position_markets[market_id]
+                    invested = pos.get('invested', 0)
+                    print(f"  - {m.get('question', 'Unknown')[:40]}... (SKIP - already invested ${invested:.2f})")
+                else:
+                    tradable_markets.append((m, remaining, time_until_start))
+            
+            if not tradable_markets:
+                print(f"Found {len(markets)} active market(s), but already invested in all of them")
+                time.sleep(random.uniform(20, 30))
+                continue
+            
+            # Only trade on ACTIVE markets (already started, not future)
+            # Filter out markets that haven't started yet
+            active_now_markets = [(m, r, ts) for m, r, ts in tradable_markets if ts <= 0]
+            
+            if not active_now_markets:
+                # Check if any market is starting very soon (within 30 seconds)
+                markets_starting_very_soon = [(m, r, ts) for m, r, ts in tradable_markets if 0 < ts <= 30]
+                if markets_starting_very_soon:
+                    markets_starting_very_soon.sort(key=lambda x: x[2])
+                    m, r, ts = markets_starting_very_soon[0]
+                    print(f"⏳ Market starting in {ts:.0f}s: {m.get('question', 'Unknown')[:40]}...")
+                    print(f"   Waiting to check momentum at market open...")
+                    time.sleep(ts + 2)  # Wait until market opens + 2 seconds buffer
+                    continue  # Re-check in next cycle with fresh momentum
+                else:
+                    print(f"Found {len(tradable_markets)} market(s) but none active yet")
+                    time.sleep(10)
+                    continue
+            
+            # Use only active markets for trading
+            tradable_markets = active_now_markets
+            
+            print(f"Found {len(tradable_markets)} tradable market(s):")
+            for m, remaining, _ in tradable_markets[:3]:
+                print(f"  - {m.get('question', 'Unknown')[:45]}... ({remaining/60:.1f}min left)")
+            
+            # Get price from Chainlink for signal generation
+            chainlink_data = get_chainlink_price(ASSET)
+            if chainlink_data:
+                signal_gen.update_price(chainlink_data['price'])
+            
+            # Check risk limits first
+            allowed, risk_reason = risk_mgr.can_trade()
+            if not allowed:
+                print(f"⏸️  Risk check: {risk_reason}")
+                time.sleep(random.uniform(30, 45))
+                continue
+            
+            # Generate signal using multi-timeframe analysis
+            min_conf = CONFIG.get('min_confidence', 0.65)
+            signal_data = signal_gen.generate_signal(min_confidence=min_conf)
+            signal = signal_data.get('signal')
+            confidence = signal_data.get('confidence', 0)
+            price_now = signal_data.get('price', 0)
+            reason = signal_data.get('reason', '')
+            metadata = signal_data.get('metadata', {})
+            
+            print(f"\n📊 BTC: ${price_now:,.2f} | MULTI-TIMEFRAME ANALYSIS")
+            if metadata:
+                print(f"   Short: {metadata.get('short_momentum', 0):+.3f}% | Medium: {metadata.get('medium_momentum', 0):+.3f}% | Long: {metadata.get('long_momentum', 0):+.3f}%")
+                print(f"   ATR: {metadata.get('atr_pct', 0):.3f}% | Regime: {metadata.get('volatility_regime', 'N/A')}")
+            print(f"   Signal: {signal if signal else 'NONE'} | Confidence: {confidence:.2f}")
+            print(f"   Reason: {reason}")
+            
+            # Only trade on confirmed signals
+            if not signal:
+                print(f"⏸️  No signal - skipping")
+                time.sleep(random.uniform(20, 30))
+                continue
+            
+            # Trade on the best market (soonest expiry)
+            best_market, remaining, _ = tradable_markets[0]
+            market_id = best_market.get('id')
+            question = best_market.get('question', 'Unknown')
+            
+            # Note: Future market filtering is now done in get_active_simmer_markets()
+            # Only markets that have already started (time_until_start <= 0) reach this point
+            
+            # CRITICAL: Verify all data before trading
+            # Create momentum dict in expected format
+            avg_momentum = metadata.get('short_momentum', 0) if metadata else 0
+            momentum_for_verify = {
+                'price_now': price_now,
+                'momentum_pct': avg_momentum
+            }
+            market_ok, verify_reason = verify_market_data(best_market, momentum_for_verify)
+            if not market_ok:
+                print(f"❌ Market verification FAILED: {verify_reason}")
+                time.sleep(random.uniform(20, 30))
+                continue
+            print(f"✅ Market verification: {verify_reason}")
+            
+            side = signal_data.get('side', 'yes')
+            trade_amount = CONFIG.get('max_position', 10.0)
+            
+            print(f"\n🚀 TRADING {side.upper()} (MULTI-TIMEFRAME)")
+            print(f"Market: {question[:50]}...")
+            print(f"Time left: {remaining:.0f}s")
+            print(f"Signal: {signal} | Confidence: {confidence:.2f}")
+            if metadata:
+                print(f"Trend: Short {metadata.get('short_momentum', 0):+.2f}% / Long {metadata.get('long_momentum', 0):+.2f}%")
+            print(f"Amount: ${trade_amount:.2f} (from config)")
+            
+            # Execute trade with verified amount
+            result = execute_trade_sdk(api_key, market_id, side, trade_amount, private_key=private_key)
+            
+            # Validate trade result - must have actual shares and cost > 0
+            is_real_success = (
+                result and 
+                result.get('success') and 
+                result.get('shares_bought', 0) > 0.01 and 
+                result.get('cost', 0) > 0.01
+            )
+            
+            if is_real_success:
+                trades_today += 1
+                print(f"\n✅✅✅ TRADE SUCCESS! #{trades_today}")
+                print(f"   ID: {result.get('trade_id')}")
+                print(f"   Shares: {result.get('shares_bought', 0):.2f}")
+                print(f"   Cost: ${result.get('cost', 0):.2f}")
+                if result.get('attempts', 1) > 1:
+                    print(f"   Attempts: {result.get('attempts')}")
+                
+                # Write notification
+                from pathlib import Path
+                notify_file = Path(__file__).parent / ".trade_notification"
+                with open(notify_file, "w") as f:
+                    f.write(f"TRADE_EXECUTED\n")
+                    f.write(f"Time: {datetime.now(timezone.utc).isoformat()}\n")
+                    f.write(f"Market: {question}\n")
+                    f.write(f"Side: {side.upper()}\n")
+                    f.write(f"Amount: ${result.get('cost', 0):.2f}\n")
+                    f.write(f"Shares: {result.get('shares_bought', 0):.2f}\n")
+                    f.write(f"Trade ID: {result.get('trade_id')}\n")
+                    if metadata:
+                        f.write(f"Signal: {signal} | Confidence: {confidence:.2f}\n")
+                        f.write(f"Short: {metadata.get('short_momentum', 0):+.3f}% | Long: {metadata.get('long_momentum', 0):+.3f}%\n")
+                
+                # Record trade in risk manager
+                risk_mgr.record_trade(pnl=0)  # P&L unknown until redeem
+                
+                # 🔄 AUTO-REDEEM after successful trade
+                print("\n💰 Checking for redeemable positions...")
+                try:
+                    redeemed = redeem_positions(api_key, private_key=private_key, quiet=True)
+                    if redeemed:
+                        print(f"✅ Redeemed {len(redeemed)} position(s) after trade!")
+                        total_pnl = sum(r.get('pnl', 0) for r in redeemed)
+                        print(f"   Total P&L: ${total_pnl:.2f}")
+                        # Update risk manager with actual P&L
+                        for r in redeemed:
+                            risk_mgr.record_trade(pnl=r.get('pnl', 0))
+                except Exception as e:
+                    pass  # Silent fail - will retry next trade
+                
+                # Wait longer after successful trade
+                time.sleep(45)
+            else:
+                # Handle failed or unfilled trade
+                shares = result.get('shares_bought', 0) if result else 0
+                cost = result.get('cost', 0) if result else 0
+                
+                if result and result.get('success') and shares == 0:
+                    # Order accepted but didn't fill
+                    print(f"\n⚠️  Trade submitted but did not fill (0 shares)")
+                    print(f"   This usually means low liquidity or the price moved.")
+                
+                error = result.get('error', 'Unknown error') if result else 'No response'
+                print(f"\n❌ Trade failed: {error}")
+                if result and result.get('attempts', 1) > 1:
+                    print(f"   Attempts made: {result.get('attempts')}")
+                time.sleep(random.uniform(20, 30))
+                    
+        except Exception as e:
+            print(f"⚠️  Error: {e}")
+            time.sleep(random.uniform(20, 30))
+
+if __name__ == "__main__":
+    try:
+        rapid_fire_loop()
+    except KeyboardInterrupt:
+        print("\n\n🛑 Rapid-fire trader stopped")
+        sys.exit(0)
+    except Exception as e:
+        print(f"\n❌ Fatal error: {e}")
+        sys.exit(1)

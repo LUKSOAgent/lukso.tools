@@ -1,0 +1,1 @@
+{"timestamp":"2026-02-16T12:37:00Z","status":"ok","checks":{"cron_jobs":"all_running","twitter_mentions":"running_ok","twitter_standalone":"scheduled_12:40","daily_report":"payload_fixed","forever_moments":"currently_running_started_12:36"},"notes":"Forever Moments cron started running at 12:36 UTC. Standalone tweet scheduled in ~3 minutes."}

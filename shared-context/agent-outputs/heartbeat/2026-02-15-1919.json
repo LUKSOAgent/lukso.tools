@@ -1,0 +1,1 @@
+{"timestamp":"2026-02-15T19:19:00Z","status":"ok","checks":{"cron_jobs":"all_running","twitter_mentions":"running_every_30min","twitter_standalone":"next_run_18:00","daily_report":"next_run_tomorrow_9am","forever_moments":"next_run_tomorrow_~16:36","priorities":"no_changes"},"notes":"All systems operational. Forever Moments had mint failure earlier, will retry on next run."}

@@ -1,0 +1,1 @@
+{"timestamp":"2026-02-15T14:14:00Z","status":"ok","checks":{"cron_jobs":"all_running","twitter_mentions":"running_every_30min","twitter_standalone":"next_run_18:00","daily_report":"next_run_tomorrow_9am","forever_moments":"next_run_~18:19","priorities":"no_changes"},"notes":"All systems nominal."}

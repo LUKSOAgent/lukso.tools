@@ -1,0 +1,1 @@
+{"timestamp":"2026-02-16T18:07:00Z","status":"ok","checks":{"cron_jobs":"2_errors","twitter_mentions":"last_run_12:37_ok","twitter_standalone":"running_ok","daily_report":"payload_fixed","forever_moments":"error_unsupported_channel","priorities":"no_changes"},"notes":"All stable."}

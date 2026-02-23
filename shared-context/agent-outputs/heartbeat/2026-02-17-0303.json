@@ -1,0 +1,12 @@
+{
+  "timestamp": "2026-02-17T03:03:00Z",
+  "status": "operational",
+  "checks": {
+    "polymarket_bot": "✅ ACTIVE - 30+ cycles, still waiting for BTC opportunity",
+    "balance": "$73.95 USDC",
+    "positions": 0,
+    "pnl": "$0",
+    "time": "03:03 UTC (late night)"
+  },
+  "notes": "Bot running normally overnight. No trades executed yet - BTC price stable below 0.5% momentum threshold."
+}

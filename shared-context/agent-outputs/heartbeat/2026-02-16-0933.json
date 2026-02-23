@@ -1,0 +1,1 @@
+{"timestamp":"2026-02-16T09:33:00Z","status":"ok","checks":{"cron_jobs":"1_fixed","twitter_mentions":"running_ok","twitter_standalone":"running_ok","daily_report":"PROMPT_FIXED_awaiting_next_run","forever_moments":"running_ok","priorities":"no_changes"},"notes":"Daily report cron updated with 3000 char limit. Will run tomorrow 08:00 CET. Other crons healthy."}

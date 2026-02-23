@@ -2,17 +2,16 @@
 
 - **Name:** Jordy (JordyDutch)
 - **What to call them:** Jordy or JordyDutch
-- **Pronouns:** *(not specified)*
-- **Timezone:** *(likely Europe/Amsterdam — confirm if needed)*
+- **Timezone:** Europe/Amsterdam (UTC+1/+2)
 - **Telegram:** @JordyDutch (id:1410153156)
 
 ## Context
 
-- **Interests:** Crypto, LUKSO (primary focus), Ethereum ecosystem. Technical, high level.
-- **Resources:** Follows LUKSO Medium (https://medium.com/lukso) and docs (https://docs.lukso.tech)
-- **Projects:** *(fill in as you learn)*
-- **Vibe:** Wants technical expertise, direct communication, no fluff.
+- **Interests:** Crypto, LUKSO (primary focus), Ethereum ecosystem
+- **Project:** Stakingverse.io — liquid staking for LUKSO (LYX → sLYX)
+- **Style:** Direct, Dutch, technical depth, no fluff
+- **Language:** English primary, Dutch occasionally
 
 ---
 
-The more you know, the better you can help. But remember — you're learning about a person, not building a dossier. Respect the difference.
+The more you know, the better you can help. But remember — you're learning about a person, not building a dossier.

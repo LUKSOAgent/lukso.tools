@@ -1,0 +1,1 @@
+{"timestamp":"2026-02-16T07:29:00Z","status":"ok","checks":{"cron_jobs":"all_running","twitter_mentions":"next_run_07:43","twitter_standalone":"last_run_06:00_ok","daily_report":"scheduled_08:00_CET","forever_moments":"next_run_15:36","priorities":"no_changes"},"notes":"All systems stable. Daily report scheduled in ~31 minutes (08:00 CET / 07:00 UTC)."}

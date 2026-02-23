@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "reddit": {
+      "command": "npx",
+      "args": ["-y", "reddit-mcp-server"],
+      "env": {
+        "REDDIT_AUTH_MODE": "authenticated",
+        "REDDIT_SAFE_MODE": "standard",
+        "REDDIT_USER_AGENT": "openclaw-bot:1.0 (by /u/LUKSOAgent)"
+      }
+    }
+  }
+}

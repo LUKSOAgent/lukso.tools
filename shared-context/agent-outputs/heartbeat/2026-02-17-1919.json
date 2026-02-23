@@ -1,0 +1,23 @@
+{
+  "timestamp": "2026-02-17T19:19:00Z",
+  "agent": "main",
+  "checks": {
+    "polymarket_trader": {
+      "status": "running",
+      "pids": [1018556, 1018576, 1018696],
+      "cycle": "#4",
+      "last_check": "2026-02-17T19:20:18Z",
+      "active_markets": 0,
+      "note": "No active 5-min BTC markets - all expired or future (Feb 18)"
+    },
+    "notifications": {
+      "trade": false,
+      "redeem": false
+    },
+    "config": {
+      "min_momentum_pct": 0.15,
+      "lookback_minutes": 2
+    }
+  },
+  "notes": "Bot operational. Next 5-min markets start tomorrow ~9:55AM ET."
+}

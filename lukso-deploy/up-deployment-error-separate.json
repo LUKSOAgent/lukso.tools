@@ -1,0 +1,4 @@
+{
+  "success": false,
+  "error": "The contract function \"computeERC1167Address\" reverted.\n\nContract Call:\n  address:   0x2300000A84D25dF63081feAa37ba6b62C4c89a30\n  function:  computeERC1167Address(bytes32 salt, uint256 fundingAmount, address implementationContract, bytes initializationCalldata)\n  args:                           (0xce46e974f33c8f779238028f9f15303e5f9b2a5715ea368ad8551e4d608c3ce6, 0, 0x52c90985AF970D4E0DC26Cb5D052505278aF32A9, 0xc4d66de80000000000000000000000003871e2fa220eac0ff59a2deea1df347adaeaa71b)\n\nDocs: https://viem.sh/docs/contract/readContract\nVersion: viem@2.45.2"
+}

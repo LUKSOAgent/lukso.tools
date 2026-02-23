@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script defer src="/_vercel/insights/script.js"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
@@ -29,6 +30,10 @@
       line-height: 1.6;
     }
     .container { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+    
+    .disclaimer { background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 8px; padding: 16px 20px; margin: 20px auto; text-align: center; }
+    .disclaimer p { color: #fbbf24; font-size: 0.9rem; margin: 0; }
+    .disclaimer strong { color: #f59e0b; }
     
     header { padding: 24px 0; border-bottom: 1px solid var(--border); }
     nav { display: flex; justify-content: space-between; align-items: center; }
@@ -103,6 +108,12 @@
       </nav>
     </div>
   </header>
+
+  <div class="container">
+    <div class="disclaimer">
+      <p><strong>⚠️ Early Access Notice:</strong> This is all brand new and actively developing. We're still figuring this stuff out too, so proceed with caution. Things may break, change, or require troubleshooting.</p>
+    </div>
+  </div>
 
   <section class="hero">
     <div class="container">

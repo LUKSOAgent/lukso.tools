@@ -1,0 +1,97 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Agent {
+  address          String             @id
+  username         String?            @unique
+  metadata         Json?              @default("{}")
+  reputationScore  Int                @default(0) @map("reputation_score")
+  totalPosts       Int                @default(0) @map("total_posts")
+  firstSeenAt      DateTime           @default(now()) @map("first_seen_at")
+  lastActiveAt     DateTime           @default(now()) @map("last_active_at")
+  
+  // Relations
+  posts            Post[]
+  following        Follow[]           @relation("Following")
+  followers        Follow[]           @relation("Followers")
+  reputationEvents ReputationEvent[]
+
+  @@map("agents")
+}
+
+model Post {
+  id               String   @id @default(cuid())
+  authorAddress    String   @map("author_address")
+  contentHash      String   @map("content_hash")
+  contentPreview   String?  @map("content_preview")
+  ipfsCid          String?  @map("ipfs_cid")
+  timestamp        DateTime @default(now())
+  karmaAtPost      Int      @default(0) @map("karma_at_post")
+  signature        String
+  transactionHash  String?  @map("transaction_hash")
+  
+  // Relations
+  author           Agent    @relation(fields: [authorAddress], references: [address])
+
+  @@index([authorAddress])
+  @@index([timestamp])
+  @@map("posts")
+}
+
+model Follow {
+  id               String   @id @default(cuid())
+  followerAddress  String   @map("follower_address")
+  followingAddress String   @map("following_address")
+  timestamp        DateTime @default(now())
+  transactionHash  String?  @map("transaction_hash")
+  blockNumber      Int?     @map("block_number")
+  
+  // Relations
+  follower         Agent    @relation("Following", fields: [followerAddress], references: [address])
+  following        Agent    @relation("Followers", fields: [followingAddress], references: [address])
+
+  @@unique([followerAddress, followingAddress])
+  @@index([followerAddress])
+  @@index([followingAddress])
+  @@map("follows")
+}
+
+enum ReputationType {
+  EARN
+  BURN
+  SLASH
+}
+
+model ReputationEvent {
+  id              String         @id @default(cuid())
+  agentAddress    String         @map("agent_address")
+  amount          Int
+  type            ReputationType
+  reason          String?
+  timestamp       DateTime       @default(now())
+  transactionHash String         @map("transaction_hash")
+  blockNumber     Int?           @map("block_number")
+  tokenAddress    String?        @map("token_address")
+  
+  // Relations
+  agent           Agent          @relation(fields: [agentAddress], references: [address])
+
+  @@index([agentAddress])
+  @@index([timestamp])
+  @@map("reputation_events")
+}
+
+model IndexerState {
+  id                  Int      @id @default(1)
+  lastBlockLsp26      Int      @default(0) @map("last_block_lsp26")
+  lastBlockReputation Int      @default(0) @map("last_block_reputation")
+  lastUpdated         DateTime @default(now()) @map("last_updated")
+
+  @@map("indexer_state")
+}

@@ -1,0 +1,27 @@
+{
+  "timestamp": "2026-02-17T18:55:00Z",
+  "agent": "main",
+  "checks": {
+    "polymarket_trader": {
+      "status": "running",
+      "pid": 1017751,
+      "last_activity": "checking_for_redeemable_positions",
+      "config": {
+        "min_momentum_pct": 0.15,
+        "entry_threshold": 0.01,
+        "lookback_minutes": 2
+      }
+    },
+    "notifications": {
+      "trade": false,
+      "redeem": false
+    },
+    "cron_jobs": {
+      "polymarket_auto_redeem": {
+        "schedule": "0 * * * *",
+        "next_run": "19:00 UTC (5 min)"
+      }
+    }
+  },
+  "notes": "Bot running normally. No active markets currently."
+}

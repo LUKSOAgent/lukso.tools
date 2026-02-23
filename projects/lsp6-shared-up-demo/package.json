@@ -1,0 +1,63 @@
+{
+  "name": "lsp6-shared-up-demo",
+  "version": "1.0.0",
+  "description": "LSP6 Shared Universal Profile / Mini-DAO Demo - Multiple EOAs as controllers with granular permissions",
+  "main": "index.js",
+  "scripts": {
+    "compile": "npx hardhat compile",
+    "demo": "npx hardhat run scripts/demo-simple.ts",
+    "demo:local": "npx hardhat run scripts/demo-simple.ts --network localhost",
+    "demo:full": "npx hardhat run scripts/demo.ts",
+    "node": "npx hardhat node",
+    "test": "npx hardhat test",
+    "clean": "npx hardhat clean",
+    "test:verbose": "npx hardhat test --verbose"
+  },
+  "keywords": [
+    "lukso",
+    "lsp6",
+    "universal-profile",
+    "key-manager",
+    "dao",
+    "multi-sig",
+    "ethereum",
+    "web3",
+    "openclaw",
+    "sub-agents"
+  ],
+  "author": "OpenClaw Demo",
+  "license": "MIT",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-chai-matchers": "^2.1.0",
+    "@nomicfoundation/hardhat-ethers": "^3.1.0",
+    "@nomicfoundation/hardhat-ignition": "^0.15.16",
+    "@nomicfoundation/hardhat-ignition-ethers": "^0.15.14",
+    "@nomicfoundation/hardhat-network-helpers": "^1.1.0",
+    "@nomicfoundation/hardhat-toolbox": "^6.1.0",
+    "@nomicfoundation/hardhat-verify": "^2.1.0",
+    "@nomicfoundation/ignition-core": "^0.15.15",
+    "@typechain/ethers-v6": "^0.5.0",
+    "@typechain/hardhat": "^9.0.0",
+    "@types/chai": "^4.2.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^22.13.5",
+    "chai": "^4.2.0",
+    "dotenv": "^16.4.7",
+    "ethers": "^6.13.5",
+    "hardhat": "^2.22.18",
+    "hardhat-gas-reporter": "^2.3.0",
+    "solidity-coverage": "^0.8.1",
+    "ts-node": "^10.9.2",
+    "typechain": "^8.3.0",
+    "typescript": "^5.7.3"
+  },
+  "dependencies": {
+    "@lukso/lsp-smart-contracts": "^0.16.7",
+    "@lukso/lsp0-contracts": "^0.15.5",
+    "@lukso/lsp1-contracts": "^0.15.5",
+    "@lukso/lsp6-contracts": "^0.15.5"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

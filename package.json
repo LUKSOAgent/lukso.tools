@@ -17,6 +17,7 @@
     "node-fetch": "^2.7.0",
     "oauth-1.0a": "^2.2.6",
     "puppeteer": "^24.37.1",
-    "twitter-api-v2": "^1.29.0"
+    "twitter-api-v2": "^1.29.0",
+    "viem": "^2.46.2"
   }
 }

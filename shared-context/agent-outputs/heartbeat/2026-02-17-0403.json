@@ -1,0 +1,23 @@
+{
+  "timestamp": "2026-02-17T04:03:00Z",
+  "status": "HEARTBEAT_OK",
+  "checks": {
+    "cron_jobs": {
+      "twitter-mentions-check": {"status": "ok", "last_run": "2025-02-17T01:43:00Z", "next_run": "2025-02-17T04:43:00Z"},
+      "twitter-standalone-tweet": {"status": "ok", "last_run": "2025-02-17T00:00:00Z", "next_run": "2025-02-17T06:00:00Z"},
+      "daily-community-report": {"status": "warning", "note": "Failed yesterday (msg too long), config updated, next_run: 09:00 CET"},
+      "forever-moments-post": {"status": "error", "note": "Delivery config issue (whatsapp), needs fix"},
+      "scam-awareness-reminder": {"status": "ok", "next_run": "2025-03-01"}
+    },
+    "projects": {
+      "lukso-docs-pr-1317": "waiting for CJ decision",
+      "agent-code-hub": "monitoring",
+      "forever-moments": "delivery issue"
+    }
+  },
+  "notes": [
+    "Daily report runs in ~5 hours (09:00 CET) - watch for msg length",
+    "Forever Moments needs delivery.channel fix (currently whatsapp, should be announce)",
+    "No urgent items - quiet hours (04:03 UTC)"
+  ]
+}

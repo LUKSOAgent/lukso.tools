@@ -6,8 +6,20 @@
       "installedAt": 1770324188807
     },
     "universal-profile": {
-      "version": "0.3.5",
-      "installedAt": 1770589323588
+      "version": "0.7.0",
+      "installedAt": 1771490532564
+    },
+    "polymarket-fast-loop": {
+      "version": "1.0.7",
+      "installedAt": 1771285180967
+    },
+    "lukso-agent-comms": {
+      "version": "0.1.4",
+      "installedAt": 1771590334186
+    },
+    "lukso-agent-comms-firm": {
+      "version": "0.1.5",
+      "installedAt": 1771591150704
     }
   }
 }

@@ -1,0 +1,37 @@
+{
+  "timestamp": "2026-02-17T16:14:00Z",
+  "checks": {
+    "polymarket_trader": {
+      "status": "ok",
+      "last_run": "ok",
+      "consecutive_errors": 0,
+      "next_run": "2026-02-17T16:16:00Z",
+      "notes": "Auto-redeem enabled, 1 position redeemed successfully (+$0.32 P&L)"
+    },
+    "forever_moments": {
+      "status": "error",
+      "consecutive_errors": 2,
+      "last_error": "Unsupported channel: whatsapp"
+    },
+    "twitter_mentions": {
+      "status": "ok",
+      "last_run": "ok"
+    },
+    "twitter_standalone": {
+      "status": "ok",
+      "last_run": "ok"
+    },
+    "daily_report": {
+      "status": "ok",
+      "next_run": "2026-02-18T08:00:00Z"
+    }
+  },
+  "notifications_sent": [
+    {
+      "type": "redeem",
+      "market": "Bitcoin Up or Down - Feb 17, 10:50AM-10:55AM",
+      "pnl": 0.32,
+      "tx_block": 83112415
+    }
+  ]
+}

@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script defer src="/_vercel/insights/script.js"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
@@ -255,6 +256,10 @@
       line-height: 1.5;
     }
     
+    .disclaimer { background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 8px; padding: 16px 20px; margin: 20px auto; max-width: 720px; text-align: center; }
+    .disclaimer p { color: #fbbf24; font-size: 0.9rem; margin: 0; }
+    .disclaimer strong { color: #f59e0b; }
+    
     /* Lists */
     ol.steps-list {
       margin: 12px 0;
@@ -328,6 +333,12 @@
     </div>
   </header>
 
+  <div class="container">
+    <div class="disclaimer">
+      <p><strong>⚠️ Early Access Notice:</strong> This is all brand new and actively developing. We're still figuring this stuff out too, so proceed with caution. Things may break, change, or require troubleshooting.</p>
+    </div>
+  </div>
+
   <section class="hero">
     <div class="container">
       <div class="badge">Complete Setup Guide</div>
@@ -349,12 +360,12 @@
           <div class="card-grid">
             <div class="card">
               <h4>DigitalOcean ⭐</h4>
-              <p>Simple setup. $200 free credits with referral.</p>
+              <p>Simple setup. $24/month. $200 free credits with referral.</p>
               <a href="https://m.do.co/c/73552f933c81" target="_blank" class="link">Get $200 →</a>
             </div>
             <div class="card">
               <h4>Hetzner</h4>
-              <p>Cheapest option. €4-8/month.</p>
+              <p>Cheapest option. $5-9/month.</p>
               <a href="https://hetzner.com/cloud" target="_blank" class="link">Sign up →</a>
             </div>
             <div class="card">
@@ -366,7 +377,7 @@
           
           <div class="info-box">
             <h4>Recommended Specs</h4>
-            <p>Ubuntu 22.04 LTS • 2GB RAM • 25GB SSD</p>
+            <p>Ubuntu 22.04 LTS • 2GB RAM • 50GB SSD</p>
           </div>
         </div>
       </div>
@@ -404,17 +415,11 @@ openclaw init</pre>
           
           <ol class="steps-list">
             <li>Go to <a href="https://my.universalprofile.cloud" target="_blank">my.universalprofile.cloud</a></li>
-            <li>Connect MetaMask or UP Extension</li>
             <li>Click <strong>Create Universal Profile</strong></li>
             <li>Set name, description, tags</li>
             <li>Deploy — the relayer pays all gas fees!</li>
           </ol>
 
-          <div class="warning-box">
-            <h4>Save These Addresses</h4>
-            <p>Universal Profile: 0x... (your identity)<br>Key Manager: 0x... (permissions)</p>
-          </div>
-          
           <div class="info-box">
             <h4>Documentation</h4>
             <p>Full docs at <a href="https://docs.lukso.tech" target="_blank">docs.lukso.tech</a></p>
@@ -456,17 +461,14 @@ console.log('Private Key:', w.privateKey);
           
           <ol class="steps-list">
             <li>Open the <a href="https://lukso-network.github.io/openclaw-universalprofile-skill/" target="_blank"><strong>OpenClaw Authorization UI</strong></a></li>
-            <li>Connect your Universal Profile (MetaMask or UP Extension)</li>
-            <li>Paste your agent's address from Step 4</li>
+            <li>Connect your Universal Profile</li>
+            <li>Paste your agent's public address from Step 4</li>
             <li>Select permissions: <code>TRANSFERVALUE</code> + <code>CALL</code></li>
             <li>Click <strong>Generate Authorization</strong></li>
             <li>Sign the transaction (relayer covers gas!)</li>
           </ol>
           
-          <div class="info-box">
-            <h4>Why Use This Tool?</h4>
-            <p>It generates the proper LSP6 permission payload automatically. No manual encoding needed. Built by @emmet_ai_ and the OpenClaw team.</p>
-          </div>
+          <p><strong>This is now your controller</strong> — you can change its permissions or revoke it anytime from your Universal Profile.</p>
           
           <div class="success-box">
             <h4>Why This Pattern?</h4>
@@ -475,7 +477,8 @@ console.log('Private Key:', w.privateKey);
 
           <div class="info-box">
             <h4>Resources</h4>
-            <p><a href="https://lukso-network.github.io/openclaw-universalprofile-skill/" target="_blank">Authorization UI →</a><br>
+            <p><a href="https://github.com/LUKSOAgent/Agent-skills-hub" target="_blank">EVM & LUKSO Skills (teach your agent more) →</a><br>
+               <a href="https://lukso-network.github.io/openclaw-universalprofile-skill/" target="_blank">Authorization UI →</a><br>
                <a href="https://github.com/lukso-network/openclaw-universalprofile-skill" target="_blank">GitHub Repo →</a><br>
                <a href="https://github.com/emmet-bot/openclaw-skills" target="_blank">More Skills →</a></p>
           </div>
@@ -486,20 +489,19 @@ console.log('Private Key:', w.privateKey);
       <div class="step">
         <div class="step-number">6</div>
         <div class="step-content">
-          <h3>Get Twitter API</h3>
+          <h3>Get X (Twitter) API</h3>
           <p>For posting tweets and reading mentions.</p>
           
           <ol class="steps-list">
-            <li>Go to <a href="https://developer.twitter.com" target="_blank">developer.twitter.com</a></li>
-            <li>Apply for developer account</li>
-            <li>Create Project → App</li>
-            <li>Generate <strong>OAuth 1.0a</strong> keys</li>
-            <li>Copy: API Key, Secret, Access Token, Secret</li>
+            <li>Go to <a href="https://developer.x.com" target="_blank">developer.x.com</a></li>
+            <li>Sign up or sign in to the developer portal</li>
+            <li>Create a project and app in the Dev Console</li>
+            <li>Generate <strong>OAuth 1.0a</strong> keys (API Key, Secret, Access Token, Secret)</li>
           </ol>
           
           <div class="info-box">
-            <h4>API Tiers</h4>
-            <p><strong>Essential (Free):</strong> Read + Post<br><strong>Basic ($100/mo):</strong> + Likes, Retweets</p>
+            <h4>Pay-per-use pricing</h4>
+            <p>X uses usage-based pricing: you pay for what you use instead of a flat monthly fee. For example, reading posts is charged per request (~$0.005/read) and posting (~$0.01/post). Use the Dev Console calculator to estimate costs. New developers may be eligible for credits.</p>
           </div>
         </div>
       </div>
@@ -607,11 +609,17 @@ openclaw gateway status</pre>
           <h3>Start Your Agent</h3>
           <p>Everything configured. Start interacting.</p>
           
-          <pre>openclaw agent chat</pre>
+          <pre>openclaw gateway</pre>
 
           <div class="success-box">
             <h4>You're Done!</h4>
             <p>Your agent has: Universal Profile • Twitter API • LLM • Telegram • Moltbook</p>
+          </div>
+
+          <div class="info-box">
+            <h4>Next: Teach your agent more</h4>
+            <p>Go to the Agent Skills Hub to add EVM & LUKSO skills (Universal Profile, staking, Forever Moments, and more).</p>
+            <p><a href="https://github.com/LUKSOAgent/Agent-skills-hub" target="_blank">→ Open Agent-skills-hub on GitHub</a></p>
           </div>
         </div>
       </div>

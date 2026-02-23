@@ -1,0 +1,4 @@
+{"date": "2026-02-17", "trades": 26, "wins": 14, "losses": 12, "unknown": 0, "win_rate": 53.8, "pnl": 86.0, "exposure": 237.4, "generated_at": "2026-02-23T09:59:15.732853+00:00"}
+{"date": "2026-02-18", "trades": 13, "wins": 3, "losses": 10, "unknown": 0, "win_rate": 23.1, "pnl": -60.21, "exposure": 119.7, "generated_at": "2026-02-23T09:59:15.732918+00:00"}
+{"date": "2026-02-19", "trades": 15, "wins": 6, "losses": 9, "unknown": 0, "win_rate": 40.0, "pnl": 10.92, "exposure": 231.49, "generated_at": "2026-02-23T09:59:15.732946+00:00"}
+{"date": "2026-02-20", "trades": 7, "wins": 2, "losses": 5, "unknown": 0, "win_rate": 28.6, "pnl": -42.9, "exposure": 89.99, "generated_at": "2026-02-23T09:59:15.732966+00:00"}

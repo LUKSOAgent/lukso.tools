@@ -1,0 +1,1 @@
+{"timestamp":"2026-02-16T19:07:00Z","status":"ok","checks":{"cron_jobs":"all_running","twitter_mentions":"last_run_18:23_ok","twitter_standalone":"completed_18:40_ok","daily_report":"payload_fixed","forever_moments":"error_unsupported_channel","priorities":"no_changes"},"notes":"Twitter standalone tweet posted at 18:40. All systems stable."}

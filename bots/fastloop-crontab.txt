@@ -1,0 +1,14 @@
+# Polymarket FastLoop Trading - Cron Jobs
+# Add these lines to crontab with: crontab -e
+
+# Run FastLoop every 5 minutes (matches 5-minute BTC market windows)
+*/5 * * * * /root/.openclaw/workspace/bots/run-fastloop.sh >> /var/log/fastloop/cron.log 2>&1
+
+# Check status every hour and log to heartbeat
+0 * * * * /root/.openclaw/workspace/bots/check-status.sh >> /var/log/fastloop/status.log 2>&1
+
+# Daily summary at 23:00 UTC
+0 23 * * * echo "=== Daily Summary $(date) ===" >> /var/log/fastloop/daily.log && /root/.openclaw/workspace/bots/check-status.sh >> /var/log/fastloop/daily.log 2>&1
+
+# Clean up old logs weekly (keep 30 days)
+0 0 * * 0 find /var/log/fastloop -name "*.log" -mtime +30 -delete

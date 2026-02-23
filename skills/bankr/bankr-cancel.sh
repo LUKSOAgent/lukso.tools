@@ -5,7 +5,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-SKILL_DIR="$(dirname "$SCRIPT_DIR")"
+SKILL_DIR="$SCRIPT_DIR"
 
 # Find config file
 if [ -f "$SKILL_DIR/config.json" ]; then

@@ -1,0 +1,12 @@
+{
+  "timestamp": "2026-02-17T01:33:00Z",
+  "status": "operational",
+  "checks": {
+    "polymarket_bot": "✅ ACTIVE (cron-based) - Cycles running every 5 min via cron",
+    "cron_log": "Last cycle: 01:25, Next: 01:30",
+    "trades_today": 0,
+    "status": "Waiting for BTC momentum >0.5%",
+    "time": "01:33 UTC"
+  },
+  "notes": "Bot operating normally via cron jobs. Process exits after each cycle (by design), restarted every 5 minutes by cron."
+}

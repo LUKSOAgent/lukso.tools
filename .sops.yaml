@@ -1,0 +1,10 @@
+# SOPS config: public key only (safe to commit).
+# Private key must live OUTSIDE .openclaw — e.g. ~/.config/sops/age/keys.txt
+# Set SOPS_AGE_KEY_FILE if your key is elsewhere.
+creation_rules:
+  # Encrypt .credentials as binary (preserves format, comments, etc.)
+  - path_regex: \.credentials$
+    age: age1442hnw74yskyqy8xqmwv5dejlvsh82tz0h4zw29u98kqqxjnk5kqhmvh5v
+    input_type: binary
+  # Default for other files in this dir
+  - age: age1442hnw74yskyqy8xqmwv5dejlvsh82tz0h4zw29u98kqqxjnk5kqhmvh5v
