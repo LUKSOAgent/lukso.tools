@@ -288,10 +288,76 @@ Total commits: 4 | Lines changed: +4,667 | Files modified: 6
 
 ---
 
+---
+
+## Agent A Session 2 — 2026-03-14
+
+**Tasks completed:**
+
+1. **README enhanced** — Added "Why This Matters" with real examples, ASCII architecture diagram, Live Demo section with explorer links, Registered Agents table, trust score formula box, prominent contract addresses, test count badge. Commit: `7dc5632`.
+
+2. **SDK README created** — `/root/.openclaw/workspace/universal-trust/sdk/README.md`: full installation guide, quick start, trust verification flow diagram, complete API reference for all 12 public methods with examples, error handling guide with all 6 error codes, retry behavior explanation. Commit: `7dc5632`.
+
+3. **CONTRIBUTING.md added** — Brief, professional contributing guide covering setup, test commands, commit format, guidelines. Commit: `7dc5632`.
+
+4. **Tests run** — All 45 Foundry tests PASS, all 23 SDK tests PASS. Zero failures.
+
+5. **Contract verification** — Live mainnet calls confirmed:
+   - Agent count: 2
+   - Deployer (0x7315...): registered=true, active=true, trustScore=100
+   - UP Agent (0x293E...): registered=true, active=true, trustScore=110, endorsements=1
+
+---
+
+## Agent B Session 1 — 2026-03-14
+
+**Track:** Frontend/UX
+**Commit:** `6b7dcb4`
+
+### Task 1: Endorse Page ✅
+- Created `/frontend/src/pages/Endorse.jsx`
+- Form with agent address + reason fields
+- Pre-fills address from `?address=` query param (deep-linked from AgentProfile)
+- Client-side checks: address format, self-endorse
+- Contract-level checks before tx: `isRegistered()`, `hasEndorsed()`
+- Error handling for: `AlreadyEndorsed`, `CannotEndorseSelf`, `NotRegistered`, `AgentNotActive`, user rejection
+- Success state with tx link + agent profile link
+- Toast notifications + main status display
+- "How Endorsements Work" info box
+- Added route `/endorse` to App.jsx
+- Added Endorse link to Navbar (desktop + mobile)
+
+### Task 2: Frontend Polish ✅
+- Verify page: added `TrustScoreBar` component for consistent score display
+- AgentCard: enhanced stats display (colored rep/endorsement counts, mini trust bar)
+- AgentProfile: "Endorse" CTA button in profile header (deep-links to Endorse page)
+- All existing loading/error states already professional — no regressions
+
+### Task 3: Trust Score Visualization ✅
+- Updated `TrustBadge.jsx` to export `TrustScoreBar` named export
+- `TrustScoreBar`: shows formula breakdown (Rep X + Endorsements Y × 10 = Score Z) + gradient progress bar
+- Color coding consistent across all components: green 500+, blue 200+, yellow 100+, gray below
+- Added to: AgentProfile (full breakdown section), Verify page (breakdown panel), AgentCard (mini bar)
+
+### Task 4: About Page ✅
+- Created `/frontend/src/pages/About.jsx` as a dedicated `/about` route
+- Sections: Trust Model (formula + tier grid), verify() flow (code example + explorer link), Getting Started (3 steps), Deployed Contracts (both registries), hackathon credits + links
+- Added About link to Navbar
+
+### Task 5: Build Verification ✅
+```
+✓ 185 modules transformed
+✓ built in 1.24s
+0 errors, 0 warnings
+All chunks within expected size
+```
+
+---
+
 ## Final Status
 
 ✅ **ALL DELIVERABLES COMPLETE**
 
-The Universal Trust hackathon project is production-ready for the "Agents that Trust" track. Both contracts are deployed on LUKSO mainnet, fully tested, and audited. The SDK provides a clean, type-safe interface with comprehensive error handling. Two agents (deployer EOA + LUKSO UP) are registered and endorsed on-chain.
+The Universal Trust hackathon project is production-ready for the "Agents that Trust" track. Both contracts are deployed on LUKSO mainnet, fully tested, and audited. The SDK provides a clean, type-safe interface with comprehensive error handling. Two agents (deployer EOA + LUKSO UP) are registered and endorsed on-chain. Documentation is comprehensive and judge-ready.
 
 Ready for demo and evaluation.
