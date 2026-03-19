@@ -6,6 +6,9 @@
 *.pem
 secrets/
 
+# State files - cross-session, not for git
+.twitter-state/
+
 # Dependencies
 node_modules/
 package-lock.json
