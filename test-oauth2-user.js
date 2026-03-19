@@ -2,8 +2,8 @@ const { TwitterApi } = require('twitter-api-v2');
 
 // OAuth 2.0 User Context (PKCE flow)
 const client = new TwitterApi({
-  clientId: 'cllhNFA4bHlFVkIyMmV5eDM0Y3A6MTpjaQ',
-  clientSecret: 'yIxsiH8-PtJu_7o3szTszszI2jikkdFVJ4a-8-iMDew4dTI554',
+  clientId: process.env.TWITTER_CLIENT_ID || 'REDACTED_CLIENT_ID',
+  clientSecret: process.env.TWITTER_CLIENT_SECRET || 'REDACTED_CLIENT_SECRET',
 });
 
 const TWEET_ID = '2020581055737290867';
