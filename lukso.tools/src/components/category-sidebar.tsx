@@ -1,19 +1,17 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { ToolCategory, categories as allCategories } from "@/data/tools";
 
 interface CategoryWithCount {
-  id: ToolCategory;
+  id: string;
   label: string;
-  description: string;
   count: number;
 }
 
 interface CategorySidebarProps {
   categories: CategoryWithCount[];
-  selectedCategory: ToolCategory;
-  onSelectCategory: (category: ToolCategory) => void;
+  selectedCategory: string;
+  onSelectCategory: (category: string) => void;
 }
 
 export function CategorySidebar({

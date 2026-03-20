@@ -4,11 +4,11 @@ import { useState, useMemo } from "react";
 import { Header } from "@/components/header";
 import { CategorySidebar } from "@/components/category-sidebar";
 import { ToolCard } from "@/components/tool-card";
-import { tools, categories, ToolCategory } from "@/data/tools";
+import { tools, categories } from "@/data/tools";
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState<ToolCategory>("all");
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
 
   const filteredTools = useMemo(() => {
     return tools.filter((tool) => {
@@ -20,7 +20,7 @@ export default function Home() {
 
       const matchesCategory =
         selectedCategory === "all" ||
-        tool.category === selectedCategory;
+        tool.categories.includes(selectedCategory);
 
       return matchesSearch && matchesCategory;
     });
@@ -29,13 +29,15 @@ export default function Home() {
   const categoryCounts = useMemo(() => {
     const counts: Record<string, number> = { all: tools.length };
     tools.forEach((tool) => {
-      counts[tool.category] = (counts[tool.category] || 0) + 1;
+      tool.categories.forEach((cat) => {
+        counts[cat] = (counts[cat] || 0) + 1;
+      });
     });
     return counts;
   }, []);
 
-  const activeCategoryLabel = selectedCategory === "all" 
-    ? "All Tools" 
+  const activeCategoryLabel = selectedCategory === "all"
+    ? "All Tools"
     : categories.find((c) => c.id === selectedCategory)?.label || "All Tools";
 
   return (

@@ -3,7 +3,7 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Github } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import { Tool, categories } from "@/data/tools";
 
 interface ToolCardProps {
@@ -11,7 +11,8 @@ interface ToolCardProps {
 }
 
 export function ToolCard({ tool }: ToolCardProps) {
-  const categoryLabel = categories.find(c => c.id === tool.category)?.label || tool.category;
+  const primaryCategory = tool.categories[0];
+  const categoryLabel = categories.find(c => c.id === primaryCategory)?.label || primaryCategory;
 
   return (
     <Card className="group bg-white border-gray-200 hover:shadow-md transition-shadow duration-200">
@@ -21,23 +22,6 @@ export function ToolCard({ tool }: ToolCardProps) {
             {tool.name}
           </h3>
           <div className="flex gap-1">
-            {tool.githubUrl && (
-              <Button
-                variant="ghost"
-                size="icon"
-                className="shrink-0 h-8 w-8 text-gray-400 hover:text-gray-900 hover:bg-gray-100"
-                asChild
-              >
-                <a
-                  href={tool.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`View ${tool.name} on GitHub`}
-                >
-                  <Github className="h-4 w-4" />
-                </a>
-              </Button>
-            )}
             <Button
               variant="ghost"
               size="icon"
@@ -55,21 +39,24 @@ export function ToolCard({ tool }: ToolCardProps) {
             </Button>
           </div>
         </div>
-        {tool.author && (
-          <p className="text-xs text-gray-500 mt-1">by {tool.author}</p>
-        )}
       </CardHeader>
       <CardContent className="pt-0">
         <p className="text-gray-600 text-sm leading-relaxed mb-4">
           {tool.description}
         </p>
         <div className="flex flex-wrap gap-2">
-          <Badge
-            variant="secondary"
-            className="bg-blue-50 text-blue-700 hover:bg-blue-100 border-0 text-xs font-medium"
-          >
-            {categoryLabel}
-          </Badge>
+          {tool.categories.map((cat) => {
+            const label = categories.find(c => c.id === cat)?.label || cat;
+            return (
+              <Badge
+                key={cat}
+                variant="secondary"
+                className="bg-blue-50 text-blue-700 hover:bg-blue-100 border-0 text-xs font-medium"
+              >
+                {label}
+              </Badge>
+            );
+          })}
           {tool.tags?.slice(0, 3).map((tag) => (
             <Badge
               key={tag}

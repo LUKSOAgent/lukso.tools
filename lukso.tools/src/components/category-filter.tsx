@@ -1,12 +1,12 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { categories, type ToolCategory } from "@/data/tools";
+import { categories } from "@/data/tools";
 
 interface CategoryFilterProps {
-  activeCategory: ToolCategory;
-  onCategoryChange: (category: ToolCategory) => void;
-  counts: Record<ToolCategory, number>;
+  activeCategory: string;
+  onCategoryChange: (category: string) => void;
+  counts: Record<string, number>;
 }
 
 export function CategoryFilter({ activeCategory, onCategoryChange, counts }: CategoryFilterProps) {
