@@ -63,7 +63,3 @@ export function getLiveToolConfig(profile: ToolProfile | undefined): LiveToolCon
     upAddress: profile.upAddress,
   };
 }
-
-export function explorerAddressUrl(address: string) {
-  return `https://explorer.execution.mainnet.lukso.network/address/${address}`;
-}
