@@ -15,8 +15,33 @@
 
 - **Comprehensive Search** - Find tools quickly with instant search
 - **Category Filtering** - Browse by categories like DeFi, NFT, Developer Tools, Wallets, and more
-- **Community Curated** - Tools are added and vetted by the community
+- **HashList Curation** - Discover curated Tool UPs and list detail pages
+- **Universal Profile Signals** - Tool UP metadata can be read live from ERC725Y/LSP3
+- **LIKES Support** - Send LSP7 LIKES to Tool UPs and List UPs
 - **Open Source** - Free to use, fork, and contribute to
+
+## Live LUKSO Configuration
+
+The app ships with static demo data, then upgrades to live LUKSO reads and writes when addresses are configured.
+
+Copy `.env.example` to `.env.local` and set:
+
+```bash
+NEXT_PUBLIC_LUKSO_RPC_URL=https://rpc.mainnet.lukso.network
+NEXT_PUBLIC_LIKES_TOKEN_ADDRESS=0x...
+NEXT_PUBLIC_CURATED_LISTS='[{"id":"jordy-dev-essentials","hashListAddress":"0x...","listUpAddress":"0x..."}]'
+NEXT_PUBLIC_TOOL_PROFILES='[{"toolId":"stakingverse","upAddress":"0x..."}]'
+```
+
+Live behavior:
+
+- HashList reads use LSP8 `totalSupply()` and `tokenAt(index)`.
+- HashList writes mint the padded Tool UP address as the LSP8 token id.
+- Tool UP profile reads use ERC725Y/LSP3 profile metadata.
+- LIKES reads use LSP7 `balanceOf(address)`.
+- LIKES sends use LSP7 `transfer(from, to, amount, force, data)`.
+
+Placeholder addresses are ignored, so the UI will not submit fake transactions by accident.
 
 ## How to Use
 
@@ -92,6 +117,8 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for detailed guidelines.
 - **[TypeScript](https://www.typescriptlang.org/)** - Type safety
 - **[Tailwind CSS 4](https://tailwindcss.com/)** - Utility-first styling
 - **[shadcn/ui](https://ui.shadcn.com/)** - Beautiful UI components
+- **[viem](https://viem.sh/)** - Contract reads, ABI encoding, and wallet transaction payloads
+- **[erc725.js](https://docs.lukso.tech/tools/dapps/erc725js/getting-started/)** - Universal Profile metadata reads
 
 ## Project Structure
 

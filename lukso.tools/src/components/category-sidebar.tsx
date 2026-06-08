@@ -1,7 +1,6 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { categories as allCategories } from "@/data/tools";
 
 interface CategoryWithCount {
   id: string;

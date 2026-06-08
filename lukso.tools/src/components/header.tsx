@@ -3,6 +3,9 @@
 import { Search, Moon, Sun } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useTheme } from "@/components/theme-provider";
+import Link from "next/link";
+import Image from "next/image";
+import { WalletConnectButton } from "@/components/wallet-connect-button";
 
 interface HeaderProps {
   searchQuery: string;
@@ -22,7 +25,7 @@ export function Header({ searchQuery, onSearchChange, onReset }: HeaderProps) {
             onClick={onReset}
             className="flex items-center gap-2 shrink-0 cursor-pointer"
           >
-            <img src="/logo.svg" alt="LUKSO" className="h-8 w-8" />
+            <Image src="/logo.svg" alt="LUKSO" width={32} height={32} />
             <span className="font-semibold text-gray-900 dark:text-gray-100 text-lg hidden sm:block">
               lukso.tools
             </span>
@@ -40,6 +43,31 @@ export function Header({ searchQuery, onSearchChange, onReset }: HeaderProps) {
                 className="pl-10 h-10 bg-gray-50 dark:bg-gray-900 border-gray-200 dark:border-gray-700 dark:text-gray-100 dark:placeholder:text-gray-500 focus:bg-white dark:focus:bg-gray-900 focus:border-blue-500 focus:ring-blue-500/20 rounded-full"
               />
             </div>
+          </div>
+
+          <nav className="hidden items-center gap-1 md:flex">
+            <Link
+              href="/?view=curated"
+              className="rounded-md px-3 py-2 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-gray-100"
+            >
+              Curated
+            </Link>
+            <Link
+              href="/?view=lists"
+              className="rounded-md px-3 py-2 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-gray-100"
+            >
+              Lists
+            </Link>
+            <Link
+              href="/curate"
+              className="rounded-md px-3 py-2 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-gray-100"
+            >
+              Curate
+            </Link>
+          </nav>
+
+          <div className="hidden shrink-0 sm:block">
+            <WalletConnectButton />
           </div>
 
           {/* Dark mode toggle */}
